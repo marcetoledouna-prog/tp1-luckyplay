@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LukyPlay | Inicio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="encabezado">
+    <div class="encabezado-contenido">
+      <a class="marca" href="index.html"><img src="img/logo.svg" alt="">LukyPlay</a>
+      <nav class="menu">
+        <ul>
+          <li><a class="activo" href="index.html">Inicio</a></li>
+          <li><a href="cartas.html">Cartas</a></li>
+          <li><a href="dados.html">Dados</a></li>
+          <li><a href="preguntas.html">Trivia</a></li>
+          <li><a href="puntajes.html">Puntajes</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="portada">
+      <div class="portada-texto">
+        <h1>¡Bienvenidos a LukyPlay!</h1>
+        <p class="bajada">Tres juegos clásicos pero mas divertidos, en un solo sitio: un juego de cartas, uno de dados y uno de preguntas. Elegí uno, superá tu récord y dejá tu nombre en la tabla de posiciones.</p>
+        <div class="acciones">
+          <a class="btn" href="cartas.html">Empezar a jugar</a>
+          <a class="btn btn-secundario" href="puntajes.html">Ver récords</a>
+        </div>
+      </div>
+      <div class="portada-imagen">
+        <div class="abanico">
+          <img class="carta-1" src="img/cartas/corazones-A.svg" alt="">
+          <img class="carta-2" src="img/cartas/picas-K.svg" alt="">
+          <img class="dado-portada" src="img/dados/dado-6.svg" alt="">
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 id="titulo-juegos">Los juegos</h2>
+      <div class="tarjetas-juegos">
+        <article class="tarjeta-juego">
+          <img src="img/cartas/diamantes-10.svg" alt="Carta 10 de diamantes">
+          <span class="etiqueta">Juego de cartas</span>
+          <h3>Duelo de Palos</h3>
+          <p>Un juego de cartas inventado: vos contra la máquina en 8 rondas. Jugá la carta que mejor combine con la carta de mesa y llevate los puntos de las dos.</p>
+          <p class="record-portada" id="record-cartas">Récord: —</p>
+          <a class="btn" href="cartas.html">Jugar a Duelo de Palos</a>
+        </article>
+        <article class="tarjeta-juego">
+          <img src="img/dados/dado-5.svg" alt="Dado mostrando el 5">
+          <span class="etiqueta">Juego de dados</span>
+          <h3>Blanco</h3>
+          <p>Un juego de dados inventado para dos jugadores: la máquina tira tres dados rojos y cada uno, en su turno, intenta igualar su suma. Guardá dados, arriesgá un tiro más y cuidá tus tres vidas.</p>
+          <p class="record-portada" id="record-dados">Récord: —</p>
+          <a class="btn" href="dados.html">Jugar a Blanco</a>
+        </article>
+        <article class="tarjeta-juego">
+          <img src="img/logo-trivia.png" alt="Signo de pregunta de colores">
+          <span class="etiqueta">Juego de preguntas</span>
+          <h3>Trivia de arte</h3>
+          <p>¿Quién pintó esta obra? ¿Quién es este artista? Imágenes y datos de Wikipedia en español sobre grandes artistas plásticos. Respondé antes de que se termine el tiempo y cuidá tus tres vidas.</p>
+          <p class="record-portada" id="record-preguntas">Récord: —</p>
+          <a class="btn" href="preguntas.html">Jugar a la Trivia</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 id="titulo-como">¿Cómo funciona?</h2>
+      <ol class="pasos">
+        <li><strong>1. Elegí un juego</strong>Cada página explica el objetivo y las reglas antes de empezar.</li>
+        <li><strong>2. Jugá la partida</strong>El panel de estado te muestra en todo momento qué está pasando y qué podés hacer.</li>
+        <li><strong>3. Guardá tu puntaje</strong>Al terminar, escribí tu nombre: los récords quedan guardados en tu navegador.</li>
+        <li><strong>4. Compará resultados</strong>En la página de Puntajes vas a encontrar el top 10 de cada juego.</li>
+      </ol>
+    </section>
+  </main>
+
+   <footer class="pie">     
+        <p>LukyPlay · Trabajo Práctico 1 - Informática General 2026 - TN</p>
+        <p>Alumnos: Marcela Toledo - André Palacios - Agustina Pol Diez</p>      
+        <p>Cátedra: Valeria Drelichman | Pedro Paleo | Leonardo Nadel | Norma Morales<br>
+            UNA Multimedia</p>
+  </footer>
+
+  <script src="js/comun.js"></script>
+  <script src="js/inicio.js"></script>
+</body>
+</html>
