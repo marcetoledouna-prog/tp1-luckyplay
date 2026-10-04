@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LukyPlay | Dados - Blanco</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="encabezado">
+    <div class="encabezado-contenido">
+      <a class="marca" href="index.html"><img src="img/logo.svg" alt="">LukyPlay</a>
+      <nav class="menu">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="cartas.html">Cartas</a></li>
+          <li><a class="activo" href="dados.html">Dados</a></li>
+          <li><a href="preguntas.html">Trivia</a></li>
+          <li><a href="puntajes.html">Puntajes</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Dados · Blanco</h1>
+
+    <div class="intro-juego">
+      <section class="panel">
+        <h2>Objetivo</h2>
+        <p>Un juego de dados Original de LukyPlay, para <strong>2 jugadores</strong> en la misma computadora. En cada ronda la máquina tira <strong>3 dados rojos</strong> y su suma es el <strong>número objetivo</strong>. Cada jugador, en su turno, tira <strong>3 dados blancos</strong> para acercarse lo más posible a ese número. Se juegan <strong>10 rondas</strong> y cada jugador tiene <strong>3 vidas</strong>. Gana quien tenga más puntos al final.</p>
+        <h3>Cómo se juega un turno</h3>
+        <ol class="reglas">
+          <li>Los dos jugadores tienen el mismo objetivo en cada ronda. Primero juega el jugador 1 y después el jugador 2.</li>
+          <li>Presioná «Tirar dados». Podés tirar hasta <strong>3 veces</strong>.</li>
+          <li>Entre tiro y tiro, tocá los dados que quieras <strong>guardar</strong> (quedan con borde dorado) y volvé a tirar el resto.</li>
+          <li>Cuando te guste tu suma, presioná <strong>«Plantarme»</strong>. Después del tercer tiro te plantás obligatoriamente.</li>
+        </ol>
+      </section>
+      <section class="panel">
+        <h2>Puntos</h2>
+        <ul class="reglas">
+          <li>Diferencia 0 («¡En el blanco!»): <strong>20 puntos</strong>.</li>
+          <li>Diferencia 1: <strong>12</strong> · diferencia 2: <strong>6</strong> · diferencia 3: <strong>2</strong>.</li>
+          <li>Diferencia 4 o más: <strong>0 puntos y perdés una vida</strong>.</li>
+          <li><strong>Trío</strong> (tus tres dados iguales): <strong>+10</strong>.</li>
+          <li><strong>Escalerita</strong> (tres números seguidos, por ejemplo 3-4-5): <strong>+5</strong>.</li>
+          <li><strong>Cada tiro extra cuesta 2 puntos</strong> (el segundo tiro resta 2 y el tercero 4). Una ronda nunca suma menos de 0.</li>
+          <li>Un jugador sin vidas queda afuera y el otro sigue solo.</li>
+          <li>La partida termina después de 10 rondas o cuando los dos se quedan sin vidas. Gana quien tenga más puntos.</li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="panel" id="seccion-config">
+      <h2>Jugadores</h2>
+      <form id="form-config">
+        <div class="config-jugadores">
+          <div class="campo">
+            <label for="nombre-1">Nombre del jugador 1</label>
+            <input type="text" id="nombre-1" maxlength="15" placeholder="Ej: Lucía">
+          </div>
+          <div class="campo">
+            <label for="nombre-2">Nombre del jugador 2</label>
+            <input type="text" id="nombre-2" maxlength="15" placeholder="Ej: Tomás">
+          </div>
+        </div>
+        <p class="campo-error" id="error-config"></p>
+        <button type="submit" class="btn">Empezar partida</button>
+      </form>
+    </section>
+
+    <section class="panel oculto" id="seccion-juego">
+      <h2>Partida</h2>
+      <div class="estado">
+        <div class="estado-item"><span>Ronda</span><strong id="ronda">1 / 10</strong></div>
+        <div class="estado-item"><span>Turno de</span><strong id="turno-de">-</strong></div>
+        <div class="estado-item"><span>Tiro</span><strong id="tiro">0 / 3</strong></div>
+      </div>
+
+      <div class="marcador" id="marcador"></div>
+
+      <p class="mensaje" id="mensaje">La máquina está tirando los dados rojos...</p>
+
+      <div class="zona-dados zona-objetivo">
+        <h3 class="titulo-dados">Objetivo: <span id="objetivo">?</span></h3>
+        <div class="fila-dados" id="dados-objetivo"></div>
+      </div>
+
+      <div class="zona-dados">
+        <h3 class="titulo-dados">Tu suma: <span id="suma">-</span></h3>
+        <div class="fila-dados" id="zona-dados"></div>
+      </div>
+      <p class="ayuda-dados">Tocá un dado para guardarlo o soltarlo.</p>
+
+      <div class="acciones">
+        <button type="button" class="btn" id="btn-tirar">Tirar dados</button>
+        <button type="button" class="btn btn-secundario" id="btn-plantarse">Plantarme</button>
+        <button type="button" class="btn oculto" id="btn-siguiente">Siguiente turno</button>
+        <button type="button" class="btn oculto" id="btn-nueva">Nueva partida</button>
+      </div>
+
+      <div id="zona-final"></div>
+    </section>
+  </main>
+
+  <footer class="pie">     
+        <p>LukyPlay · Trabajo Práctico 1 - Informática General 2026 - TN</p>
+        <p>Alumnos: Marcela Toledo - André Palacios - Agustina Pol Diez</p>      
+        <p>Cátedra: Valeria Drelichman | Pedro Paleo | Leonardo Nadel | Norma Morales<br>
+            UNA Multimedia</p>
+  </footer>
+
+  <script src="js/comun.js"></script>
+  <script src="js/dados.js"></script>
+</body>
+</html>
