@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280" width="200" height="280">
+<title>Q de picas</title>
+<defs><g id="palo" fill="#1b1b1b"><path d="M50 6 C78 32 98 48 88 68 C80 82 62 80 54 68 C56 80 60 88 68 96 L32 96 C40 88 44 80 46 68 C38 80 20 82 12 68 C2 48 22 32 50 6 Z"/></g></defs>
+<rect x="2" y="2" width="196" height="276" rx="14" fill="#fffdf7" stroke="#cfc6b0" stroke-width="3"/>
+<g fill="#1b1b1b"><rect x="38" y="44" width="124" height="192" rx="8" fill="#1b1b1b" fill-opacity="0.08" stroke="#1b1b1b" stroke-width="2"/><text x="100" y="150" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="92" fill="#1b1b1b">Q</text><use href="#palo" transform="translate(77.0 173.0) scale(0.46)"/><text x="100" y="80" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#1b1b1b">Reina</text></g>
+<text x="20" y="36" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="28" fill="#1b1b1b">Q</text><use href="#palo" transform="translate(11.0 45.0) scale(0.18)"/>
+<g transform="rotate(180 100 140)"><text x="20" y="36" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="28" fill="#1b1b1b">Q</text><use href="#palo" transform="translate(11.0 45.0) scale(0.18)"/></g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280" width="200" height="280">
+<title>6 de treboles</title>
+<defs><g id="palo" fill="#1b1b1b"><circle cx="50" cy="28" r="20"/><circle cx="28" cy="58" r="20"/><circle cx="72" cy="58" r="20"/><path d="M46 58 L54 58 C56 78 60 88 68 96 L32 96 C40 88 44 78 46 58 Z"/></g></defs>
+<rect x="2" y="2" width="196" height="276" rx="14" fill="#fffdf7" stroke="#cfc6b0" stroke-width="3"/>
+<g fill="#1b1b1b"><use href="#palo" transform="translate(47.0 45.0) scale(0.34)"/><use href="#palo" transform="translate(119.0 45.0) scale(0.34)"/><use href="#palo" transform="translate(47.0 123.0) scale(0.34)"/><use href="#palo" transform="translate(119.0 123.0) scale(0.34)"/><use href="#palo" transform="rotate(180 64 218) translate(47.0 201.0) scale(0.34)"/><use href="#palo" transform="rotate(180 136 218) translate(119.0 201.0) scale(0.34)"/></g>
+<text x="20" y="36" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="28" fill="#1b1b1b">6</text><use href="#palo" transform="translate(11.0 45.0) scale(0.18)"/>
+<g transform="rotate(180 100 140)"><text x="20" y="36" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="28" fill="#1b1b1b">6</text><use href="#palo" transform="translate(11.0 45.0) scale(0.18)"/></g>
+</svg>
