@@ -1,6 +1,7 @@
 // =========================================================
 // comun.js - Funciones compartidas por todas las páginas
 // - Récords y partidas jugadas (localStorage + JSON)
+// - Ventana de reglas de los juegos
 // - Mezclar un array
 // =========================================================
 
@@ -148,6 +149,26 @@ function mostrarFormularioRecord(contenedor, juego, puntaje, detalle, nombreSuge
       aviso.innerHTML = `Puntaje registrado, pero no alcanzó para entrar al top ${MAX_PUESTOS}. <a href="puntajes.html">Ver tabla de puntajes</a>`;
     }
     form.replaceWith(aviso);
+  });
+}
+
+// ---------- Ventana de reglas ----------
+
+// En las páginas de juego, el botón "Cómo se juega" abre las reglas en un <dialog>.
+// El botón Cerrar lo cierra solo (está en un form con method="dialog") y Esc también.
+const ventanaReglas = document.querySelector('#ventana-reglas');
+const btnReglas = document.querySelector('#btn-reglas');
+
+if (ventanaReglas !== null && btnReglas !== null) {
+  btnReglas.addEventListener('click', () => {
+    ventanaReglas.showModal();
+  });
+
+  // Un clic en el fondo oscuro llega al propio <dialog>, no a su contenido
+  ventanaReglas.addEventListener('click', (e) => {
+    if (e.target === ventanaReglas) {
+      ventanaReglas.close();
+    }
   });
 }
 

@@ -6,13 +6,13 @@
   <title>LukyPlay | Puntajes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Righteous&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
-<body>
+<body class="pagina-compacta">
   <header class="encabezado">
     <div class="encabezado-contenido">
-      <a class="marca" href="index.html"><img src="img/logo.svg" alt="">LukyPlay</a>
+      <a class="marca" href="index.html"><img src="img/logo-min.svg" alt="">LukyPlay</a>
       <nav class="menu">
         <ul>
           <li><a href="index.html">Inicio</a></li>
@@ -27,18 +27,36 @@
   </header>
 
   <main>
-    <h1>Ranking</h1>
-    <p>Los 10 mejores puntajes estan en el salon de la fama si tu puntaje es mayor a alguno de ellos, tu nombre quedará registrado en el ranking.</p>
-    <section class="panel">
-      <h2 id="titulo-estadisticas">Estadísticas</h2>
+    <section class="cabecera-juego">
+      <div>
+        <span class="sobretitulo">Salón de la fama</span>
+        <h1>Ranking</h1>
+        <p class="bajada">Los 10 mejores puntajes de cada juego. Si superás alguno, tu nombre queda registrado en el ranking.</p>
+      </div>
+    </section>
+
+    <section class="bloque">
+      <div class="bloque-titulo">
+        <span class="sobretitulo">01 · Top 10</span>
+        <h2>Mejores puntajes</h2>
+      </div>
+      <div class="grilla-puntajes" id="grilla-puntajes"></div>
+    </section>
+
+    <section class="bloque">
+      <div class="bloque-titulo">
+        <span class="sobretitulo">02 · Estadísticas</span>
+        <h2 id="titulo-estadisticas">Partidas jugadas</h2>
+      </div>
       <div class="estado" id="estadisticas"></div>
     </section>
 
-    <div class="grilla-puntajes" id="grilla-puntajes"></div>
-
-    <section class="panel">
-      <h2 id="titulo-borrar">Borrar récords</h2>
-      <p>Esta acción elimina todos los puntajes y estadísticas guardados en este navegador. No se puede deshacer.</p>
+    <section class="bloque">
+      <div class="bloque-titulo">
+        <span class="sobretitulo">03 · Datos</span>
+        <h2 id="titulo-borrar">Borrar récords</h2>
+        <p class="bajada">Esta acción elimina todos los puntajes y estadísticas guardados en este navegador. No se puede deshacer.</p>
+      </div>
       <div class="acciones" id="acciones-borrar">
         <button type="button" class="btn btn-peligro" id="btn-borrar">Borrar todos los récords</button>
       </div>
@@ -50,14 +68,26 @@
     </section>
   </main>
 
-  <footer class="pie">     
-        <p>LukyPlay · Trabajo Práctico 1 - Informática General 2026 - TN</p>
-        <p>Alumnos: Marcela Toledo - André Palacios - Agustina Pol Diez</p>      
-        <p>Cátedra: Valeria Drelichman | Pedro Paleo | Leonardo Nadel | Norma Morales<br>
-            UNA Multimedia</p>
+  <footer class="pie">
+    <div class="pie-contenido">
+      <div>
+        <span class="pie-marca">LukyPlay</span>
+        <p>Trabajo Práctico 1 · Informática General 2026 · TN</p>
+      </div>
+      <div>
+        <span class="pie-titulo">Alumnos</span>
+        <p>Marcela Toledo<br>André Palacios<br>Agustina Pol Diez</p>
+      </div>
+      <div>
+        <span class="pie-titulo">Cátedra</span>
+        <p>Valeria Drelichman · Pedro Paleo · Leonardo Nadel · Norma Morales</p>
+        <p>UNA Multimedia</p>
+      </div>
+    </div>
   </footer>
 
   <script src="js/comun.js"></script>
+  <script src="js/interaccion.js"></script>
   <script src="js/puntajes.js"></script>
 </body>
 </html>

@@ -8,7 +8,6 @@ const JUEGOS = [
   { clave: 'dados', titulo: 'Blanco (dados)', unidad: 'puntos', pagina: 'dados.html' },
   { clave: 'preguntas', titulo: 'Trivia (preguntas)', unidad: 'puntos', pagina: 'preguntas.html' }
 ];
-const MEDALLAS = ['🥇', '🥈', '🥉'];
 
 const grilla = document.querySelector('#grilla-puntajes');
 const estadisticas = document.querySelector('#estadisticas');
@@ -40,12 +39,18 @@ function mostrarPuntajes() {
       listaHtml.classList.add('lista-records');
       for (let i = 0; i < lista.length; i++) {
         const item = document.createElement('li');
-        let medalla = '';
-        if (i < MEDALLAS.length) {
-          medalla = MEDALLAS[i] + ' ';
-        }
+        // Nombre y detalle a la izquierda, puntaje a la derecha.
         // innerText muestra el nombre tal cual lo escribió el jugador
-        item.innerText = `${medalla}${lista[i].nombre}: ${lista[i].puntaje} ${juego.unidad} (${lista[i].detalle})`;
+        const nombre = document.createElement('span');
+        nombre.classList.add('record-nombre');
+        nombre.innerText = lista[i].nombre;
+        const detalle = document.createElement('small');
+        detalle.innerText = lista[i].detalle;
+        nombre.append(detalle);
+        const puntaje = document.createElement('span');
+        puntaje.classList.add('record-puntaje');
+        puntaje.innerText = `${lista[i].puntaje} ${juego.unidad}`;
+        item.append(nombre, puntaje);
         listaHtml.append(item);
       }
       seccion.append(listaHtml);

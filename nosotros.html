@@ -6,13 +6,13 @@
   <title>LukyPlay | Nosotros</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Righteous&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
   <header class="encabezado">
     <div class="encabezado-contenido">
-      <a class="marca" href="index.html"><img src="img/logo.svg" alt="">LukyPlay</a>
+      <a class="marca" href="index.html"><img src="img/logo-min.svg" alt="">LukyPlay</a>
       <nav class="menu">
         <ul>
           <li><a href="index.html">Inicio</a></li>
@@ -27,63 +27,151 @@
   </header>
 
   <main>
-    <h1>Nosotros</h1>
-    <p>LukyPlay un sitio para que todos puedan disfrutar de juegos clásicos de forma divertida. <br>
-  Podrás probar suerte en tres juegos diferentes: cartas, dados y preguntas.
-Animate y divertite.</p>
+    <!-- Cabecera: título grande y cifras del proyecto -->
+    <section class="cabecera">
+      <span class="sobretitulo">Nosotros</span>
+      <h1>Tres juegos clásicos, hechos desde cero.</h1>
+      <p class="bajada">LukyPlay reúne tres juegos clásicos —cartas, dados y preguntas— con reglas propias. Lo hicimos como Trabajo Práctico 1 de Informática General.</p>
+      <ul class="cifras">
+        <li><strong>3</strong><span>juegos originales</span></li>
+        <li><strong>65</strong><span>ilustraciones SVG propias</span></li>
+        <li><strong>1</strong><span>API pública</span></li>
+        <li><strong>0</strong><span>librerías externas</span></li>
+      </ul>
+    </section>
 
-    <section>
-      <h2 id="titulo-integrantes">Integrantes</h2>
-      <!-- COMPLETAR con los datos reales de cada integrante -->
+    <section class="bloque">
+      <div class="bloque-titulo">
+        <span class="sobretitulo">01 · Equipo</span>
+        <h2 id="titulo-integrantes">Quiénes somos</h2>
+      </div>
       <ul class="integrantes">
         <li class="integrante">
-          <div class="avatar">1</div>
-          <h3> Marcela Toledo </h3>
-          <p>Estudiante Arte Multimediales</p>
+          <div class="avatar">MT</div>
+          <h3>Marcela Toledo</h3>
+          <p>Estudiante de Artes Multimediales</p>
         </li>
         <li class="integrante">
-          <div class="avatar">2</div>
+          <div class="avatar">AP</div>
           <h3>André Palacios</h3>
-          <p>Estudiante Arte Multimediales</p>
+          <p>Estudiante de Artes Multimediales</p>
         </li>
         <li class="integrante">
-          <div class="avatar">3</div>
-          <h3>Agustina Pol Diez </h3>
-          <p>Estudiante Arte Multimediales</p>
+          <div class="avatar">AD</div>
+          <h3>Agustina Pol Diez</h3>
+          <p>Estudiante de Artes Multimediales</p>
         </li>
       </ul>
     </section>
 
-    <section class="panel">
-      <h2 id="titulo-proceso">Desarrolladores del proyecto</h2>
-      <ol class="reglas">
-        <li><strong>Planificamos</strong> elegimos los tres juegos, definiendo sus reglas.</li>
-        <li><strong>Estructuramos las pagina y estilos</strong></li>
-        <li><strong>Programamos desarrollamos los juegos y las funciones compartidas</strong></li>
-        <li><strong>Probamos cada juego con casos normales y situaciones no previstas </li>
-        <li><strong>Documentamos las decisiones técnicas y la declaración de uso de IA.</li>
+    <section class="bloque">
+      <div class="bloque-titulo">
+        <span class="sobretitulo">02 · Proceso</span>
+        <h2 id="titulo-proceso">Cómo lo armamos</h2>
+      </div>
+      <ol class="proceso">
+        <li>
+          <span class="paso-num">01</span>
+          <h3>Planificamos</h3>
+          <p>Elegimos los tres juegos y definimos sus reglas, sus puntajes y cuándo termina cada partida.</p>
+        </li>
+        <li>
+          <span class="paso-num">02</span>
+          <h3>Estructuramos</h3>
+          <p>Armamos las páginas en HTML y una sola hoja de estilos para todo el sitio.</p>
+        </li>
+        <li>
+          <span class="paso-num">03</span>
+          <h3>Programamos</h3>
+          <p>Escribimos cada juego en JavaScript, más las funciones compartidas: récords y mezcla de mazos.</p>
+        </li>
+        <li>
+          <span class="paso-num">04</span>
+          <h3>Probamos</h3>
+          <p>Jugamos cada juego en casos normales y en situaciones no previstas.</p>
+        </li>
+        <li>
+          <span class="paso-num">05</span>
+          <h3>Documentamos</h3>
+          <p>Registramos las decisiones técnicas y la declaración de uso de IA.</p>
+        </li>
       </ol>
     </section>
 
-    <section class="panel">
-      <h2 id="titulo-tecnologias">Tecnologías y recursos</h2>
-      <ul class="reglas">
-        <li>HTML5, CSS3 (Flexbox) y JavaScript.</li>
-        <li>Imágenes de cartas y dados propias, creadas en formato svg.</li>
-        <li>Imágenes de fondo y logo propias, creadas en formato jpg y png.</li>
-        <li>localStorage y JSON para guardar récords y estadísticas.</li>
-        <li>API pública de <a href="https://es.wikipedia.org/api/rest_v1/" target="_blank">Wikipedia en español</a> para las imágenes y los datos de la Trivia de arte.</li>
-        <li>Git y GitHub para el trabajo colaborativo; GitHub Pages para la publicación.</li>
-        <li>Tipografías Righteous y Nunito de Google Fonts.</li>
+    <section class="bloque">
+      <div class="bloque-titulo">
+        <span class="sobretitulo">03 · Arquitectura</span>
+        <h2 id="titulo-mapa">Mapa del sitio</h2>
+        <p class="bajada">Cada juego es una página con su propio script. Todo lo compartido vive en la base: récords, estilos e interacción.</p>
+      </div>
+
+      <!-- Diagrama: cada columna va de la página a sus datos;
+           abajo, lo que comparten todas las páginas -->
+      <div class="mapa">
+        <div class="mapa-columna">
+          <div class="mapa-nodo"><span class="mapa-tipo">Página</span><strong>index.html</strong><small>Portada</small></div>
+          <div class="mapa-nodo"><span class="mapa-tipo">Script</span><strong>inicio.js</strong><small>Muestra el mejor récord</small></div>
+          <div class="mapa-nodo mapa-dato"><span class="mapa-tipo">Datos</span><strong>Récords</strong><small>Leídos de localStorage</small></div>
+        </div>
+        <div class="mapa-columna">
+          <div class="mapa-nodo"><span class="mapa-tipo">Página</span><strong>cartas.html</strong><small>Duelo de Palos</small></div>
+          <div class="mapa-nodo"><span class="mapa-tipo">Script</span><strong>cartas.js</strong><small>Mazo, rondas y puntos</small></div>
+          <div class="mapa-nodo mapa-dato"><span class="mapa-tipo">Imágenes</span><strong>img/cartas</strong><small>53 SVG</small></div>
+        </div>
+        <div class="mapa-columna">
+          <div class="mapa-nodo"><span class="mapa-tipo">Página</span><strong>dados.html</strong><small>Blanco</small></div>
+          <div class="mapa-nodo"><span class="mapa-tipo">Script</span><strong>dados.js</strong><small>Turnos, tiros y vidas</small></div>
+          <div class="mapa-nodo mapa-dato"><span class="mapa-tipo">Imágenes</span><strong>img/dados</strong><small>12 SVG</small></div>
+        </div>
+        <div class="mapa-columna">
+          <div class="mapa-nodo"><span class="mapa-tipo">Página</span><strong>preguntas.html</strong><small>Trivia de arte</small></div>
+          <div class="mapa-nodo"><span class="mapa-tipo">Script</span><strong>preguntas.js</strong><small>+ datos-arte.js</small></div>
+          <div class="mapa-nodo mapa-dato"><span class="mapa-tipo">API</span><strong>Wikipedia</strong><small>Imágenes y resúmenes</small></div>
+        </div>
+        <div class="mapa-compartido">
+          <span class="mapa-tipo">Compartido por todas las páginas</span>
+          <div class="mapa-base">
+            <div class="mapa-nodo"><strong>comun.js</strong><small>Récords en localStorage + JSON</small></div>
+            <div class="mapa-nodo"><strong>estilos.css</strong><small>Hoja de estilos única</small></div>
+            <div class="mapa-nodo"><strong>interaccion.js</strong><small>Micro-interacciones</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloque">
+      <div class="bloque-titulo">
+        <span class="sobretitulo">04 · Recursos</span>
+        <h2 id="titulo-tecnologias">Tecnologías</h2>
+      </div>
+      <ul class="stack">
+        <li><span class="mapa-tipo">Base</span><strong>HTML5, CSS3 y JavaScript</strong><p>Sin frameworks. Maquetado con Flexbox y Grid.</p></li>
+        <li><span class="mapa-tipo">Datos</span><strong>localStorage y JSON</strong><p>Récords y estadísticas guardados en el navegador.</p></li>
+        <li><span class="mapa-tipo">API</span><strong>Wikipedia en español</strong><p>Imágenes y datos de la Trivia, vía la <a href="https://es.wikipedia.org/api/rest_v1/" target="_blank">API pública</a>.</p></li>
+        <li><span class="mapa-tipo">Gráfica</span><strong>Ilustraciones propias</strong><p>Cartas, dados, íconos y logo dibujados en SVG.</p></li>
+        <li><span class="mapa-tipo">Equipo</span><strong>Git y GitHub</strong><p>Trabajo colaborativo y publicación en GitHub Pages.</p></li>
+        <li><span class="mapa-tipo">Tipografía</span><strong>Geist y Geist Mono</strong><p>Desde Google Fonts.</p></li>
       </ul>
     </section>
   </main>
 
-  <footer class="pie">     
-        <p>LukyPlay · Trabajo Práctico 1 - Informática General 2026 - TN</p>
-        <p>Alumnos: Marcela Toledo - André Palacios - Agustina Pol Diez</p>      
-        <p>Cátedra: Valeria Drelichman | Pedro Paleo | Leonardo Nadel | Norma Morales<br>
-            UNA Multimedia</p>
+  <footer class="pie">
+    <div class="pie-contenido">
+      <div>
+        <span class="pie-marca">LukyPlay</span>
+        <p>Trabajo Práctico 1 · Informática General 2026 · TN</p>
+      </div>
+      <div>
+        <span class="pie-titulo">Alumnos</span>
+        <p>Marcela Toledo<br>André Palacios<br>Agustina Pol Diez</p>
+      </div>
+      <div>
+        <span class="pie-titulo">Cátedra</span>
+        <p>Valeria Drelichman · Pedro Paleo · Leonardo Nadel · Norma Morales</p>
+        <p>UNA Multimedia</p>
+      </div>
+    </div>
   </footer>
+  <script src="js/interaccion.js"></script>
 </body>
 </html>

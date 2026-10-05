@@ -6,13 +6,13 @@
   <title>LukyPlay | Dados - Blanco</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Righteous&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
-<body>
+<body class="pagina-compacta">
   <header class="encabezado">
     <div class="encabezado-contenido">
-      <a class="marca" href="index.html"><img src="img/logo.svg" alt="">LukyPlay</a>
+      <a class="marca" href="index.html"><img src="img/logo-min.svg" alt="">LukyPlay</a>
       <nav class="menu">
         <ul>
           <li><a href="index.html">Inicio</a></li>
@@ -27,46 +27,27 @@
   </header>
 
   <main>
-    <h1>Dados · Blanco</h1>
+    <!-- Cabecera compacta: el juego queda a la vista sin hacer scroll -->
+    <section class="cabecera-juego">
+      <div>
+        <span class="sobretitulo">Juego de dados · 2 jugadores</span>
+        <h1>Blanco</h1>
+        <p class="bajada">La máquina tira tres dados y marca un número. Dos jugadores intentan acertarle con los suyos, ronda tras ronda.</p>
+      </div>
+      <button type="button" class="btn btn-secundario" id="btn-reglas">Cómo se juega</button>
+    </section>
 
-    <div class="intro-juego">
-      <section class="panel">
-        <h2>Objetivo</h2>
-        <p>Un juego de dados Original de LukyPlay, para <strong>2 jugadores</strong> en la misma computadora. En cada ronda la máquina tira <strong>3 dados rojos</strong> y su suma es el <strong>número objetivo</strong>. Cada jugador, en su turno, tira <strong>3 dados blancos</strong> para acercarse lo más posible a ese número. Se juegan <strong>10 rondas</strong> y cada jugador tiene <strong>3 vidas</strong>. Gana quien tenga más puntos al final.</p>
-        <h3>Cómo se juega un turno</h3>
-        <ol class="reglas">
-          <li>Los dos jugadores tienen el mismo objetivo en cada ronda. Primero juega el jugador 1 y después el jugador 2.</li>
-          <li>Presioná «Tirar dados». Podés tirar hasta <strong>3 veces</strong>.</li>
-          <li>Entre tiro y tiro, tocá los dados que quieras <strong>guardar</strong> (quedan con borde dorado) y volvé a tirar el resto.</li>
-          <li>Cuando te guste tu suma, presioná <strong>«Plantarme»</strong>. Después del tercer tiro te plantás obligatoriamente.</li>
-        </ol>
-      </section>
-      <section class="panel">
-        <h2>Puntos</h2>
-        <ul class="reglas">
-          <li>Diferencia 0 («¡En el blanco!»): <strong>20 puntos</strong>.</li>
-          <li>Diferencia 1: <strong>12</strong> · diferencia 2: <strong>6</strong> · diferencia 3: <strong>2</strong>.</li>
-          <li>Diferencia 4 o más: <strong>0 puntos y perdés una vida</strong>.</li>
-          <li><strong>Trío</strong> (tus tres dados iguales): <strong>+10</strong>.</li>
-          <li><strong>Escalerita</strong> (tres números seguidos, por ejemplo 3-4-5): <strong>+5</strong>.</li>
-          <li><strong>Cada tiro extra cuesta 2 puntos</strong> (el segundo tiro resta 2 y el tercero 4). Una ronda nunca suma menos de 0.</li>
-          <li>Un jugador sin vidas queda afuera y el otro sigue solo.</li>
-          <li>La partida termina después de 10 rondas o cuando los dos se quedan sin vidas. Gana quien tenga más puntos.</li>
-        </ul>
-      </section>
-    </div>
-
-    <section class="panel" id="seccion-config">
+    <section class="config-centrada" id="seccion-config">
       <h2>Jugadores</h2>
       <form id="form-config">
         <div class="config-jugadores">
           <div class="campo">
-            <label for="nombre-1">Nombre del jugador 1</label>
-            <input type="text" id="nombre-1" maxlength="15" placeholder="Ej: Lucía">
+            <label class="solo-lector" for="nombre-1">Nombre del jugador 1</label>
+            <input type="text" id="nombre-1" maxlength="15" placeholder="Nombre del jugador 1">
           </div>
           <div class="campo">
-            <label for="nombre-2">Nombre del jugador 2</label>
-            <input type="text" id="nombre-2" maxlength="15" placeholder="Ej: Tomás">
+            <label class="solo-lector" for="nombre-2">Nombre del jugador 2</label>
+            <input type="text" id="nombre-2" maxlength="15" placeholder="Nombre del jugador 2">
           </div>
         </div>
         <p class="campo-error" id="error-config"></p>
@@ -75,17 +56,19 @@
     </section>
 
     <section class="panel oculto" id="seccion-juego">
-      <h2>Partida</h2>
-      <div class="estado">
-        <div class="estado-item"><span>Ronda</span><strong id="ronda">1 / 10</strong></div>
-        <div class="estado-item"><span>Turno de</span><strong id="turno-de">-</strong></div>
-        <div class="estado-item"><span>Tiro</span><strong id="tiro">0 / 3</strong></div>
+      <!-- Estado de la ronda y marcador de los jugadores, en una misma fila -->
+      <div class="tablero-cabecera">
+        <div class="estado">
+          <div class="estado-item"><span>Ronda</span><strong id="ronda">1 / 10</strong></div>
+          <div class="estado-item"><span>Turno de</span><strong id="turno-de">-</strong></div>
+          <div class="estado-item"><span>Tiro</span><strong id="tiro">0 / 3</strong></div>
+        </div>
+        <div class="marcador" id="marcador"></div>
       </div>
-
-      <div class="marcador" id="marcador"></div>
 
       <p class="mensaje" id="mensaje">La máquina está tirando los dados rojos...</p>
 
+      <div class="tablero-dados">
       <div class="zona-dados zona-objetivo">
         <h3 class="titulo-dados">Objetivo: <span id="objetivo">?</span></h3>
         <div class="fila-dados" id="dados-objetivo"></div>
@@ -94,6 +77,7 @@
       <div class="zona-dados">
         <h3 class="titulo-dados">Tu suma: <span id="suma">-</span></h3>
         <div class="fila-dados" id="zona-dados"></div>
+      </div>
       </div>
       <p class="ayuda-dados">Tocá un dado para guardarlo o soltarlo.</p>
 
@@ -106,16 +90,80 @@
 
       <div id="zona-final"></div>
     </section>
+
+    <!-- Reglas en una ventana: se abren con el botón "Cómo se juega"
+         y se cierran con Cerrar, con Esc o tocando afuera -->
+    <dialog class="ventana-reglas" id="ventana-reglas" aria-labelledby="titulo-ventana-reglas">
+      <div class="ventana-contenido">
+        <div class="ventana-cabecera">
+          <h2 id="titulo-ventana-reglas">Cómo se juega</h2>
+          <form method="dialog"><button type="submit" class="btn btn-secundario">Cerrar</button></form>
+        </div>
+          <div class="intro-juego">
+            <section class="panel">
+              <span class="sobretitulo" id="titulo-objetivo">Objetivo</span>
+              <h2>Acercate al número objetivo</h2>
+              <p class="lead">En cada ronda, la suma de 3 dados rojos es el objetivo. Cada jugador tira 3 dados blancos para igualarla. Después de 10 rondas, gana quien tenga más puntos.</p>
+              <ul class="datos-juego"><li>2 jugadores</li><li>10 rondas</li><li>hasta 3 tiros por turno</li><li>3 vidas</li></ul>
+              <h3>Cada turno</h3>
+              <ol class="reglas">
+                <li>Presioná <strong>«Tirar dados»</strong>.</li>
+                <li>Tocá los dados que quieras <strong>guardar</strong>: quedan marcados y no se vuelven a tirar.</li>
+                <li>Volvé a tirar el resto, hasta 3 tiros en total.</li>
+                <li>Cuando te guste la suma, presioná <strong>«Plantarme»</strong>. Después del tercer tiro te plantás solo.</li>
+              </ol>
+            </section>
+            <section class="panel">
+              <span class="sobretitulo" id="titulo-reglas">Puntos</span>
+              <h2>Qué tan cerca quedaste</h2>
+              <p class="lead">Diferencia entre tu suma y el objetivo:</p>
+              <dl class="tabla-puntos">
+                <div class="destacada"><dt>0 · ¡En el blanco!</dt><dd>20</dd></div>
+                <div><dt>1</dt><dd>12</dd></div>
+                <div><dt>2</dt><dd>6</dd></div>
+                <div><dt>3</dt><dd>2</dd></div>
+                <div class="negativa"><dt>4 o más</dt><dd>0 y perdés 1 vida</dd></div>
+              </dl>
+              <h3>Bonus y costos</h3>
+              <dl class="tabla-puntos">
+                <div class="destacada"><dt>Trío: tres dados iguales</dt><dd>+10</dd></div>
+                <div class="destacada"><dt>Escalerita: tres seguidos, como 3-4-5</dt><dd>+5</dd></div>
+                <div class="negativa"><dt>Plantarte en el 2.º tiro</dt><dd>−2</dd></div>
+                <div class="negativa"><dt>Plantarte en el 3.º tiro</dt><dd>−4</dd></div>
+              </dl>
+              <h3>Para tener en cuenta</h3>
+              <ul class="notas">
+                <li>Los dos jugadores tienen el mismo objetivo. Primero juega el jugador 1.</li>
+                <li>Una ronda nunca suma menos de 0.</li>
+                <li>Sin vidas, quedás afuera y el otro jugador sigue solo.</li>
+                <li>La partida termina después de 10 rondas o cuando los dos se quedan sin vidas.</li>
+              </ul>
+            </section>
+          </div>
+      </div>
+    </dialog>
   </main>
 
-  <footer class="pie">     
-        <p>LukyPlay · Trabajo Práctico 1 - Informática General 2026 - TN</p>
-        <p>Alumnos: Marcela Toledo - André Palacios - Agustina Pol Diez</p>      
-        <p>Cátedra: Valeria Drelichman | Pedro Paleo | Leonardo Nadel | Norma Morales<br>
-            UNA Multimedia</p>
+  <footer class="pie">
+    <div class="pie-contenido">
+      <div>
+        <span class="pie-marca">LukyPlay</span>
+        <p>Trabajo Práctico 1 · Informática General 2026 · TN</p>
+      </div>
+      <div>
+        <span class="pie-titulo">Alumnos</span>
+        <p>Marcela Toledo<br>André Palacios<br>Agustina Pol Diez</p>
+      </div>
+      <div>
+        <span class="pie-titulo">Cátedra</span>
+        <p>Valeria Drelichman · Pedro Paleo · Leonardo Nadel · Norma Morales</p>
+        <p>UNA Multimedia</p>
+      </div>
+    </div>
   </footer>
 
   <script src="js/comun.js"></script>
+  <script src="js/interaccion.js"></script>
   <script src="js/dados.js"></script>
 </body>
 </html>

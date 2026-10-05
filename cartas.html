@@ -6,13 +6,13 @@
   <title>LukyPlay | Cartas - Duelo de Palos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Righteous&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
-<body>
+<body class="pagina-compacta">
   <header class="encabezado">
     <div class="encabezado-contenido">
-      <a class="marca" href="index.html"><img src="img/logo.svg" alt="">LukyPlay</a>
+      <a class="marca" href="index.html"><img src="img/logo-min.svg" alt="">LukyPlay</a>
       <nav class="menu">
         <ul>
           <li><a href="index.html">Inicio</a></li>
@@ -26,36 +26,17 @@
     </div>
   </header>
 <main>
-    <h1>Cartas · Duelo de Palos</h1>
-
-    <div class="intro-juego">
-      <section class="panel">
-        <h2>Objetivo</h2>
-        <p>Un juego de cartas Original de LukyPlay. Jugás contra la máquina durante <strong>8 rondas</strong>: en cada ronda los dos juegan una carta y gana la que mejor combine con la <strong>carta de mesa</strong>. Al final gana quien tenga más puntos.</p>
-        <h3>Cómo se juega una ronda</h3>
-        <ol class="reglas">
-          <li>Se da vuelta una carta de mesa.</li>
-          <li>Tocás una carta de tu mano (tenés 5) para jugarla. La máquina juega la suya.</li>
-          <li>Se calculan los puntos de las dos cartas. <strong>Quien saca más se lleva los puntos de las dos.</strong> Si empatan, cada uno suma los suyos.</li>
-          <li>Cada uno levanta una carta nueva del mazo.</li>
-        </ol>
-      </section>
-      <section class="panel">
-        <h2>Puntos de cada carta</h2>
-        <ul class="reglas">
-          <li>Valor de las cartas: As = 1, del 2 al 10 su número, J = 11, Q = 12, K = 13.</li>
-          <li><strong>Mismo palo</strong> que la carta de mesa: vale el <strong>doble</strong> de su número.</li>
-          <li><strong>Mismo color</strong> (rojo o negro) pero otro palo: vale <strong>su número</strong>.</li>
-          <li>Color distinto: vale <strong>0</strong>.</li>
-          <li><strong>Espejo:</strong> si tiene el mismo número que la carta de mesa, suma <strong>+10</strong>.</li>
-          <li><strong>Comodín:</strong> una vez por partida podés cambiar toda tu mano por 5 cartas nuevas.</li>
-          <li>Tu puntaje para el récord son tus puntos al final de la partida.</li>
-        </ul>
-      </section>
-    </div>
+    <!-- Cabecera compacta: el juego queda a la vista sin hacer scroll -->
+    <section class="cabecera-juego">
+      <div>
+        <span class="sobretitulo">Juego de cartas · 1 jugador</span>
+        <h1>Duelo de Palos</h1>
+        <p class="bajada">Jugá contra la máquina durante 8 rondas. En cada una gana la carta que mejor combine con la carta de mesa.</p>
+      </div>
+      <button type="button" class="btn btn-secundario" id="btn-reglas">Cómo se juega</button>
+    </section>
 
     <section class="panel">
-      <h2>Partida</h2>
 
       <div class="estado">
         <div class="estado-item"><span>Ronda</span><strong id="ronda">1 / 8</strong></div>
@@ -64,7 +45,15 @@
         <div class="estado-item"><span>Cartas en el mazo</span><strong id="mazo-restante">52</strong></div>
       </div>
 
-      <p class="mensaje" id="mensaje">Tocá una carta de tu mano para jugarla.</p>
+      <!-- Mensaje y botones en una misma fila, siempre a la vista -->
+      <div class="barra-juego">
+        <p class="mensaje" id="mensaje">Tocá una carta de tu mano para jugarla.</p>
+        <div class="acciones">
+          <button type="button" class="btn btn-secundario" id="btn-cambiar">Comodín: cambiar mi mano</button>
+          <button type="button" class="btn oculto" id="btn-siguiente">Siguiente ronda</button>
+          <button type="button" class="btn oculto" id="btn-nueva">Nueva partida</button>
+        </div>
+      </div>
 
       <div class="mesa">
         <div class="fila-mesa">
@@ -91,24 +80,74 @@
         </div>
       </div>
 
-      <div class="acciones">
-        <button type="button" class="btn btn-secundario" id="btn-cambiar">Comodín: cambiar mi mano</button>
-        <button type="button" class="btn oculto" id="btn-siguiente">Siguiente ronda</button>
-        <button type="button" class="btn oculto" id="btn-nueva">Nueva partida</button>
-      </div>
 
       <div id="zona-final"></div>
     </section>
-  </main>in>
 
-  <footer class="pie">     
-        <p>LukyPlay · Trabajo Práctico 1 - Informática General 2026 - TN</p>
-        <p>Alumnos: Marcela Toledo - André Palacios - Agustina Pol Diez</p>      
-        <p>Cátedra: Valeria Drelichman | Pedro Paleo | Leonardo Nadel | Norma Morales<br>
-            UNA Multimedia</p>
+    <!-- Reglas en una ventana: se abren con el botón "Cómo se juega"
+         y se cierran con Cerrar, con Esc o tocando afuera -->
+    <dialog class="ventana-reglas" id="ventana-reglas" aria-labelledby="titulo-ventana-reglas">
+      <div class="ventana-contenido">
+        <div class="ventana-cabecera">
+          <h2 id="titulo-ventana-reglas">Cómo se juega</h2>
+          <form method="dialog"><button type="submit" class="btn btn-secundario">Cerrar</button></form>
+        </div>
+          <div class="intro-juego">
+            <section class="panel">
+              <span class="sobretitulo" id="titulo-objetivo">Objetivo</span>
+              <h2>Sumá más puntos que la máquina</h2>
+              <p class="lead">En cada ronda las dos juegan una carta. La que vale más se lleva los puntos de ambas. Después de 8 rondas, gana quien tenga más puntos.</p>
+              <ul class="datos-juego"><li>1 jugador</li><li>8 rondas</li><li>5 cartas en mano</li><li>1 comodín</li></ul>
+              <h3>Cada ronda</h3>
+              <ol class="reglas">
+                <li>Se da vuelta la carta de mesa.</li>
+                <li>Elegís una carta de tu mano y la máquina juega la suya.</li>
+                <li>La carta que vale más <strong>se lleva los puntos de las dos</strong>. Si empatan, cada una suma los suyos.</li>
+                <li>Las dos levantan una carta nueva del mazo.</li>
+              </ol>
+            </section>
+            <section class="panel">
+              <span class="sobretitulo" id="titulo-reglas">Puntos</span>
+              <h2>Cuánto vale tu carta</h2>
+              <p class="lead">Depende de cómo combine con la carta de mesa.</p>
+              <dl class="tabla-puntos">
+                <div class="destacada"><dt>Mismo palo</dt><dd>Doble de su número</dd></div>
+                <div><dt>Mismo color, otro palo</dt><dd>Su número</dd></div>
+                <div><dt>Otro color</dt><dd>0</dd></div>
+                <div class="destacada"><dt>Espejo: mismo número que la mesa</dt><dd>+10</dd></div>
+              </dl>
+              <h3>Para tener en cuenta</h3>
+              <ul class="notas">
+                <li>El As vale 1; del 2 al 10, su número; J vale 11, Q 12 y K 13.</li>
+                <li><strong>Comodín:</strong> una vez por partida podés cambiar tu mano entera por 5 cartas nuevas.</li>
+                <li>Tu récord son los puntos con los que terminás la partida.</li>
+              </ul>
+            </section>
+          </div>
+      </div>
+    </dialog>
+  </main>
+
+  <footer class="pie">
+    <div class="pie-contenido">
+      <div>
+        <span class="pie-marca">LukyPlay</span>
+        <p>Trabajo Práctico 1 · Informática General 2026 · TN</p>
+      </div>
+      <div>
+        <span class="pie-titulo">Alumnos</span>
+        <p>Marcela Toledo<br>André Palacios<br>Agustina Pol Diaz</p>
+      </div>
+      <div>
+        <span class="pie-titulo">Cátedra</span>
+        <p>Valeria Drelichman · Pedro Paleo · Leonardo Nadel · Norma Morales</p>
+        <p>UNA Multimedia</p>
+      </div>
+    </div>
   </footer>
 
   <script src="js/comun.js"></script>
+  <script src="js/interaccion.js"></script>
   <script src="js/cartas.js"></script>
 </body>
 </html>

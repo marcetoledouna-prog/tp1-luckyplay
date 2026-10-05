@@ -163,7 +163,7 @@ function dibujarMarcador() {
     }
     let corazones = '';
     for (let v = 0; v < VIDAS_INICIALES; v++) {
-      corazones += v < jugadores[j].vidas ? '❤️' : '🖤';
+      corazones += v < jugadores[j].vidas ? '♥\uFE0E' : '♡\uFE0E';
     }
     const nombre = document.createElement('strong');
     nombre.innerText = jugadores[j].nombre;

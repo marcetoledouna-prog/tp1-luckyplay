@@ -213,7 +213,7 @@ function actualizarEstado() {
   spanPuntos.innerText = puntos;
   let corazones = '';
   for (let i = 0; i < VIDAS_INICIALES; i++) {
-    corazones += i < vidas ? '❤️' : '🖤';
+    corazones += i < vidas ? '♥\uFE0E' : '♡\uFE0E';
   }
   spanVidas.innerText = corazones;
 }

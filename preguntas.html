@@ -6,13 +6,13 @@
   <title>LukyPlay | Trivia de arte - Juego de preguntas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Righteous&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
-<body>
+<body class="pagina-compacta">
   <header class="encabezado">
     <div class="encabezado-contenido">
-      <a class="marca" href="index.html"><img src="img/logo.svg" alt="">LukyPlay</a>
+      <a class="marca" href="index.html"><img src="img/logo-min.svg" alt="">LukyPlay</a>
       <nav class="menu">
         <ul>
           <li><a href="index.html">Inicio</a></li>
@@ -27,30 +27,15 @@
   </header>
 
   <main>
-    <h1>Trivia de arte · Juego de preguntas</h1>
-
-    <div class="intro-juego">
-      <section class="panel">
-        <h2 id="titulo-objetivo">Objetivo</h2>
-        <p>Reconocer a los grandes <strong>artistas plásticos</strong> y sus obras. Respondé bien la mayor cantidad de preguntas y sumá puntos antes de quedarte sin vidas.</p>
-        <p>Hay dos tipos de preguntas:</p>
-        <ul class="reglas">
-          <li><strong>Obra:</strong> ves una obra famosa y tenés que decir quién la hizo.</li>
-          <li><strong>Artista:</strong> ves la imagen de un artista y una pista, y tenés que decir quién es.</li>
-        </ul>
-        <p>Las imágenes y los textos se obtienen en el momento desde la <a href="https://es.wikipedia.org/" target="_blank">API de Wikipedia en español</a>.</p>
-      </section>
-      <section class="panel">
-        <h2 id="titulo-reglas">Reglas</h2>
-        <ul class="reglas">
-          <li>Tenés <strong>15 segundos</strong> para responder cada pregunta. Si se termina el tiempo, cuenta como error.</li>
-          <li>Empezás con <strong>3 vidas</strong> ❤️. Cada error o pregunta sin responder te quita una.</li>
-          <li>Cada acierto vale <strong>10 puntos más 1 punto por cada segundo que te sobre</strong>.</li>
-          <li>Tenés un comodín <strong>50:50</strong> por partida: elimina dos respuestas incorrectas.</li>
-          <li>La partida termina cuando respondés todas las preguntas o te quedás sin vidas.</li>
-        </ul>
-      </section>
-    </div>
+    <!-- Cabecera compacta: el juego queda a la vista sin hacer scroll -->
+    <section class="cabecera-juego">
+      <div>
+        <span class="sobretitulo">Juego de preguntas · 1 jugador</span>
+        <h1>Trivia de arte</h1>
+        <p class="bajada">¿Quién pintó esta obra? ¿Quién es este artista? Respondé contra reloj, con imágenes y datos de Wikipedia.</p>
+      </div>
+      <button type="button" class="btn btn-secundario" id="btn-reglas">Cómo se juega</button>
+    </section>
 
     <section class="panel" id="seccion-config">
       <h2 id="titulo-config">Configurá tu partida</h2>
@@ -97,7 +82,7 @@
       <div class="estado">
         <div class="estado-item"><span>Pregunta</span><strong id="numero-pregunta">1 / 10</strong></div>
         <div class="estado-item"><span>Puntos</span><strong id="puntos">0</strong></div>
-        <div class="estado-item"><span>Vidas</span><strong class="vidas" id="vidas">❤️❤️❤️</strong></div>
+        <div class="estado-item"><span>Vidas</span><strong class="vidas" id="vidas">♥︎♥︎♥︎</strong></div>
         <div class="estado-item"><span>Tiempo</span><strong id="tiempo">15</strong></div>
       </div>
 
@@ -114,15 +99,15 @@
           <p class="texto-pregunta" id="texto-pregunta">Pregunta</p>
           <p class="pista" id="pista"></p>
           <div class="opciones" id="opciones"></div>
+
+          <!-- Resultado, dato de Wikipedia y botones, junto a las opciones -->
+          <p class="mensaje oculto" id="mensaje"></p>
+          <p class="dato oculto" id="dato"></p>
+          <div class="acciones">
+            <button type="button" class="btn btn-secundario" id="btn-comodin">Comodín 50:50</button>
+            <button type="button" class="btn oculto" id="btn-siguiente">Siguiente pregunta</button>
+          </div>
         </div>
-      </div>
-
-      <p class="mensaje oculto" id="mensaje"></p>
-      <p class="dato oculto" id="dato"></p>
-
-      <div class="acciones">
-        <button type="button" class="btn btn-secundario" id="btn-comodin">Comodín 50:50</button>
-        <button type="button" class="btn oculto" id="btn-siguiente">Siguiente pregunta</button>
       </div>
     </section>
 
@@ -139,16 +124,74 @@
         <button type="button" class="btn" id="btn-jugar-otra">Jugar otra vez</button>
       </div>
     </section>
+
+    <!-- Reglas en una ventana: se abren con el botón "Cómo se juega"
+         y se cierran con Cerrar, con Esc o tocando afuera -->
+    <dialog class="ventana-reglas" id="ventana-reglas" aria-labelledby="titulo-ventana-reglas">
+      <div class="ventana-contenido">
+        <div class="ventana-cabecera">
+          <h2 id="titulo-ventana-reglas">Cómo se juega</h2>
+          <form method="dialog"><button type="submit" class="btn btn-secundario">Cerrar</button></form>
+        </div>
+          <div class="intro-juego">
+            <section class="panel">
+              <span class="sobretitulo" id="titulo-objetivo">Objetivo</span>
+              <h2>Reconocé obras y artistas</h2>
+              <p class="lead">Respondé bien la mayor cantidad de preguntas antes de quedarte sin vidas.</p>
+              <ul class="datos-juego"><li>1 jugador</li><li>5, 10 o 15 preguntas</li><li>15 s por pregunta</li><li>3 vidas</li></ul>
+              <h3>Dos tipos de pregunta</h3>
+              <dl class="tabla-puntos">
+                <div><dt>Obra: ves una obra famosa</dt><dd>¿Quién la hizo?</dd></div>
+                <div><dt>Artista: ves su imagen y una pista</dt><dd>¿Quién es?</dd></div>
+              </dl>
+              <h3>Cada pregunta</h3>
+              <ol class="reglas">
+                <li>Mirá la imagen y, si aparece, la pista.</li>
+                <li>Elegí una respuesta antes de que se termine el tiempo.</li>
+                <li>Leé el dato de Wikipedia y pasá a la siguiente.</li>
+              </ol>
+            </section>
+            <section class="panel">
+              <span class="sobretitulo" id="titulo-reglas">Puntos</span>
+              <h2>Puntos y vidas</h2>
+              <p class="lead">Cuanto más rápido respondas, más sumás.</p>
+              <dl class="tabla-puntos">
+                <div class="destacada"><dt>Respuesta correcta</dt><dd>10 + 1 por segundo restante</dd></div>
+                <div class="negativa"><dt>Respuesta incorrecta</dt><dd>−1 vida</dd></div>
+                <div class="negativa"><dt>Se termina el tiempo</dt><dd>−1 vida</dd></div>
+              </dl>
+              <h3>Para tener en cuenta</h3>
+              <ul class="notas">
+                <li><strong>Comodín 50:50:</strong> una vez por partida elimina dos respuestas incorrectas.</li>
+                <li>La partida termina cuando respondés todas las preguntas o te quedás sin vidas.</li>
+                <li>Las imágenes y los textos se cargan en el momento desde la <a href="https://es.wikipedia.org/" target="_blank">API de Wikipedia en español</a>.</li>
+              </ul>
+            </section>
+          </div>
+      </div>
+    </dialog>
   </main>
 
-  <footer class="pie">     
-        <p>LukyPlay · Trabajo Práctico 1 - Informática General 2026 - TN</p>
-        <p>Alumnos: Marcela Toledo - André Palacios - Agustina Pol Diez</p>      
-        <p>Cátedra: Valeria Drelichman | Pedro Paleo | Leonardo Nadel | Norma Morales<br>
-            UNA Multimedia</p>
+  <footer class="pie">
+    <div class="pie-contenido">
+      <div>
+        <span class="pie-marca">LukyPlay</span>
+        <p>Trabajo Práctico 1 · Informática General 2026 · TN</p>
+      </div>
+      <div>
+        <span class="pie-titulo">Alumnos</span>
+        <p>Marcela Toledo<br>André Palacios<br>Agustina Pol Diez</p>
+      </div>
+      <div>
+        <span class="pie-titulo">Cátedra</span>
+        <p>Valeria Drelichman · Pedro Paleo · Leonardo Nadel · Norma Morales</p>
+        <p>UNA Multimedia</p>
+      </div>
+    </div>
   </footer>
 
   <script src="js/comun.js"></script>
+  <script src="js/interaccion.js"></script>
   <script src="js/datos-arte.js"></script>
   <script src="js/preguntas.js"></script>
 </body>

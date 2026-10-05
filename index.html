@@ -6,13 +6,13 @@
   <title>LukyPlay | Inicio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Righteous&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
-<body>
+<body class="pagina-compacta">
   <header class="encabezado">
     <div class="encabezado-contenido">
-      <a class="marca" href="index.html"><img src="img/logo.svg" alt="">LukyPlay</a>
+      <a class="marca" href="index.html"><img src="img/logo-min.svg" alt="">LukyPlay</a>
       <nav class="menu">
         <ul>
           <li><a class="activo" href="index.html">Inicio</a></li>
@@ -27,73 +27,107 @@
   </header>
 
   <main>
-    <section class="portada">
-      <div class="portada-texto">
-        <h1>¡Bienvenidos a LukyPlay!</h1>
-        <p class="bajada">Tres juegos clásicos pero mas divertidos, en un solo sitio: un juego de cartas, uno de dados y uno de preguntas. Elegí uno, superá tu récord y dejá tu nombre en la tabla de posiciones.</p>
-        <div class="acciones">
-          <a class="btn" href="cartas.html">Empezar a jugar</a>
-          <a class="btn btn-secundario" href="puntajes.html">Ver récords</a>
-        </div>
-      </div>
-      <div class="portada-imagen">
-        <div class="abanico">
-          <img class="carta-1" src="img/cartas/corazones-A.svg" alt="">
-          <img class="carta-2" src="img/cartas/picas-K.svg" alt="">
-          <img class="dado-portada" src="img/dados/dado-6.svg" alt="">
-        </div>
-      </div>
+    <!-- Cabecera compacta: el selector de juegos queda como protagonista -->
+    <section class="cabecera-juego">
+      <div>
+        <span class="sobretitulo">Bienvenidos a LukyPlay</span>
+        <h1>Elegí tu juego</h1>
+          </div>
+      
     </section>
 
-    <section>
-      <h2 id="titulo-juegos">Los juegos</h2>
+    <section class="selector-juegos" aria-label="Juegos">
+      <!-- Selector de juegos: cada tarjeta es un link. Al pasar el mouse
+           se ilumina la elegida y se apagan las otras (ver estilos.css, sección 4) -->
       <div class="tarjetas-juegos">
-        <article class="tarjeta-juego">
-          <img src="img/cartas/diamantes-10.svg" alt="Carta 10 de diamantes">
-          <span class="etiqueta">Juego de cartas</span>
-          <h3>Duelo de Palos</h3>
-          <p>Un juego de cartas inventado: vos contra la máquina en 8 rondas. Jugá la carta que mejor combine con la carta de mesa y llevate los puntos de las dos.</p>
-          <p class="record-portada" id="record-cartas">Récord: —</p>
-          <a class="btn" href="cartas.html">Jugar a Duelo de Palos</a>
-        </article>
-        <article class="tarjeta-juego">
-          <img src="img/dados/dado-5.svg" alt="Dado mostrando el 5">
-          <span class="etiqueta">Juego de dados</span>
-          <h3>Blanco</h3>
-          <p>Un juego de dados inventado para dos jugadores: la máquina tira tres dados rojos y cada uno, en su turno, intenta igualar su suma. Guardá dados, arriesgá un tiro más y cuidá tus tres vidas.</p>
-          <p class="record-portada" id="record-dados">Récord: —</p>
-          <a class="btn" href="dados.html">Jugar a Blanco</a>
-        </article>
-        <article class="tarjeta-juego">
-          <img src="img/logo-trivia.png" alt="Signo de pregunta de colores">
-          <span class="etiqueta">Juego de preguntas</span>
-          <h3>Trivia de arte</h3>
-          <p>¿Quién pintó esta obra? ¿Quién es este artista? Imágenes y datos de Wikipedia en español sobre grandes artistas plásticos. Respondé antes de que se termine el tiempo y cuidá tus tres vidas.</p>
-          <p class="record-portada" id="record-preguntas">Récord: —</p>
-          <a class="btn" href="preguntas.html">Jugar a la Trivia</a>
-        </article>
+        <a class="tarjeta-juego" href="cartas.html">
+          <div class="icono-juego">
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+              <rect x="22" y="24" width="34" height="48" rx="6" transform="rotate(-15 39 48)"/>
+              <rect x="44" y="27" width="34" height="48" rx="6"/>
+            </svg>
+          </div>
+          <div class="tarjeta-info">
+            <span class="etiqueta">Cartas · 1 jugador</span>
+            <h3>Duelo de Palos</h3>
+            <p class="record-portada" id="record-cartas">Récord: —</p>
+          </div>
+        </a>
+        <a class="tarjeta-juego" href="dados.html">
+          <div class="icono-juego">
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+              <rect x="26" y="26" width="48" height="48" rx="9"/>
+              <circle cx="40" cy="40" r="6" class="lleno"/>
+              <circle cx="60" cy="40" r="6" class="lleno"/>
+              <circle cx="40" cy="60" r="6" class="lleno"/>
+              <circle cx="60" cy="60" r="6" class="lleno"/>
+            </svg>
+          </div>
+          <div class="tarjeta-info">
+            <span class="etiqueta">Dados · 2 jugadores</span>
+            <h3>Blanco</h3>
+            <p class="record-portada" id="record-dados">Récord: —</p>
+          </div>
+        </a>
+        <a class="tarjeta-juego" href="preguntas.html">
+          <div class="icono-juego">
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+              <circle cx="50" cy="50" r="25"/>
+              <text x="50" y="62" text-anchor="middle" class="lleno">?</text>
+            </svg>
+          </div>
+          <div class="tarjeta-info">
+            <span class="etiqueta">Preguntas · 1 jugador</span>
+            <h3>Trivia de arte</h3>
+            <p class="record-portada" id="record-preguntas">Récord: —</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="acciones">
+        <button type="button" class="btn btn-secundario" id="btn-reglas">Cómo funciona</button>
+        <a class="btn btn-secundario" href="puntajes.html">Ver récords</a>
       </div>
     </section>
 
-    <section class="panel">
-      <h2 id="titulo-como">¿Cómo funciona?</h2>
-      <ol class="pasos">
-        <li><strong>1. Elegí un juego</strong>Cada página explica el objetivo y las reglas antes de empezar.</li>
-        <li><strong>2. Jugá la partida</strong>El panel de estado te muestra en todo momento qué está pasando y qué podés hacer.</li>
-        <li><strong>3. Guardá tu puntaje</strong>Al terminar, escribí tu nombre: los récords quedan guardados en tu navegador.</li>
-        <li><strong>4. Compará resultados</strong>En la página de Puntajes vas a encontrar el top 10 de cada juego.</li>
-      </ol>
-    </section>
+    <!-- "Cómo funciona" en una ventana, igual que las reglas de los juegos
+         (el botón #btn-reglas la abre desde comun.js) -->
+    <dialog class="ventana-reglas ventana-chica" id="ventana-reglas" aria-labelledby="titulo-ventana-reglas">
+      <div class="ventana-contenido">
+        <div class="ventana-cabecera">
+          <h2 id="titulo-ventana-reglas">Cómo funciona</h2>
+          <form method="dialog"><button type="submit" class="btn btn-secundario">Cerrar</button></form>
+        </div>
+        <ol class="pasos">
+          <li><span class="paso-num">01</span><strong>Elegí un juego</strong>En cada juego, el botón «Cómo se juega» muestra el objetivo y las reglas.</li>
+          <li><span class="paso-num">02</span><strong>Jugá</strong>El panel de estado muestra la ronda, los puntos y lo que podés hacer.</li>
+          <li><span class="paso-num">03</span><strong>Guardá tu puntaje</strong>Al terminar, escribí tu nombre. El récord queda guardado en este navegador.</li>
+          <li><span class="paso-num">04</span><strong>Compará</strong>La tabla de puntajes muestra el top 10 de cada juego.</li>
+        </ol>
+      </div>
+    </dialog>
   </main>
 
-   <footer class="pie">     
-        <p>LukyPlay · Trabajo Práctico 1 - Informática General 2026 - TN</p>
-        <p>Alumnos: Marcela Toledo - André Palacios - Agustina Pol Diez</p>      
-        <p>Cátedra: Valeria Drelichman | Pedro Paleo | Leonardo Nadel | Norma Morales<br>
-            UNA Multimedia</p>
+  <footer class="pie">
+    <div class="pie-contenido">
+      <div>
+        <span class="pie-marca">LukyPlay</span>
+        <p>Trabajo Práctico 1 · Informática General 2026 · TN</p>
+      </div>
+      <div>
+        <span class="pie-titulo">Alumnos</span>
+        <p>Marcela Toledo<br>André Palacios<br>Agustina Pol Diez</p>
+      </div>
+      <div>
+        <span class="pie-titulo">Cátedra</span>
+        <p>Valeria Drelichman · Pedro Paleo · Leonardo Nadel · Norma Morales</p>
+        <p>UNA Multimedia</p>
+      </div>
+    </div>
   </footer>
 
   <script src="js/comun.js"></script>
+  <script src="js/interaccion.js"></script>
   <script src="js/inicio.js"></script>
 </body>
 </html>
