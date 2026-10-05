@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LukyPlay | Trivia de arte - Juego de preguntas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="encabezado">
+    <div class="encabezado-contenido">
+      <a class="marca" href="index.html"><img src="img/logo.svg" alt="">LukyPlay</a>
+      <nav class="menu">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="cartas.html">Cartas</a></li>
+          <li><a href="dados.html">Dados</a></li>
+          <li><a class="activo" href="preguntas.html">Trivia</a></li>
+          <li><a href="puntajes.html">Puntajes</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Trivia de arte · Juego de preguntas</h1>
+
+    <div class="intro-juego">
+      <section class="panel">
+        <h2 id="titulo-objetivo">Objetivo</h2>
+        <p>Reconocer a los grandes <strong>artistas plásticos</strong> y sus obras. Respondé bien la mayor cantidad de preguntas y sumá puntos antes de quedarte sin vidas.</p>
+        <p>Hay dos tipos de preguntas:</p>
+        <ul class="reglas">
+          <li><strong>Obra:</strong> ves una obra famosa y tenés que decir quién la hizo.</li>
+          <li><strong>Artista:</strong> ves la imagen de un artista y una pista, y tenés que decir quién es.</li>
+        </ul>
+        <p>Las imágenes y los textos se obtienen en el momento desde la <a href="https://es.wikipedia.org/" target="_blank">API de Wikipedia en español</a>.</p>
+      </section>
+      <section class="panel">
+        <h2 id="titulo-reglas">Reglas</h2>
+        <ul class="reglas">
+          <li>Tenés <strong>15 segundos</strong> para responder cada pregunta. Si se termina el tiempo, cuenta como error.</li>
+          <li>Empezás con <strong>3 vidas</strong> ❤️. Cada error o pregunta sin responder te quita una.</li>
+          <li>Cada acierto vale <strong>10 puntos más 1 punto por cada segundo que te sobre</strong>.</li>
+          <li>Tenés un comodín <strong>50:50</strong> por partida: elimina dos respuestas incorrectas.</li>
+          <li>La partida termina cuando respondés todas las preguntas o te quedás sin vidas.</li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="panel" id="seccion-config">
+      <h2 id="titulo-config">Configurá tu partida</h2>
+      <form id="form-config">
+        <div class="config-jugadores">
+          <div class="campo">
+            <label for="modo">Tipo de preguntas</label>
+            <select id="modo">
+              <option value="mezcla">Obras y artistas</option>
+              <option value="obras">Solo obras: ¿quién la hizo?</option>
+              <option value="artistas">Solo artistas: ¿quién es?</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="cantidad">Cantidad de preguntas</label>
+            <select id="cantidad">
+              <option value="10">10 preguntas</option>
+              <option value="5">5 preguntas</option>
+              <option value="15">15 preguntas</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn" id="btn-empezar">Empezar trivia</button>
+      </form>
+    </section>
+
+    <section class="panel oculto" id="seccion-cargando">
+      <div class="cargando">
+        <img class="dado-cargando" id="dado-cargando" src="img/dados/dado-5.svg" alt="">
+        <p id="texto-cargando">Buscando obras y artistas en Wikipedia...</p>
+      </div>
+    </section>
+
+    <section class="panel oculto" id="seccion-error">
+      <p class="mensaje mensaje-error" id="texto-error">No se pudieron cargar las preguntas.</p>
+      <div class="acciones">
+        <button type="button" class="btn" id="btn-reintentar">Reintentar</button>
+        <button type="button" class="btn btn-secundario" id="btn-volver-config">Cambiar configuración</button>
+      </div>
+    </section>
+
+    <section class="panel oculto" id="seccion-juego">
+      <h2 id="titulo-partida" class="oculto">Partida</h2>
+      <div class="estado">
+        <div class="estado-item"><span>Pregunta</span><strong id="numero-pregunta">1 / 10</strong></div>
+        <div class="estado-item"><span>Puntos</span><strong id="puntos">0</strong></div>
+        <div class="estado-item"><span>Vidas</span><strong class="vidas" id="vidas">❤️❤️❤️</strong></div>
+        <div class="estado-item"><span>Tiempo</span><strong id="tiempo">15</strong></div>
+      </div>
+
+      <div class="barra-tiempo">
+        <div class="barra-tiempo-relleno" id="barra-tiempo"></div>
+      </div>
+
+      <div class="pregunta-layout">
+        <div class="pregunta-imagen" id="pregunta-imagen"></div>
+        <div class="pregunta-contenido">
+          <div class="pregunta-meta">
+            <span class="chip" id="chip-tipo">Obra</span>
+          </div>
+          <p class="texto-pregunta" id="texto-pregunta">Pregunta</p>
+          <p class="pista" id="pista"></p>
+          <div class="opciones" id="opciones"></div>
+        </div>
+      </div>
+
+      <p class="mensaje oculto" id="mensaje"></p>
+      <p class="dato oculto" id="dato"></p>
+
+      <div class="acciones">
+        <button type="button" class="btn btn-secundario" id="btn-comodin">Comodín 50:50</button>
+        <button type="button" class="btn oculto" id="btn-siguiente">Siguiente pregunta</button>
+      </div>
+    </section>
+
+    <section class="panel oculto" id="seccion-final">
+      <h2 id="titulo-final">Resultado</h2>
+      <p class="mensaje" id="texto-final"></p>
+      <div class="estado">
+        <div class="estado-item"><span>Puntaje</span><strong id="final-puntos">0</strong></div>
+        <div class="estado-item"><span>Correctas</span><strong id="final-correctas">0</strong></div>
+        <div class="estado-item"><span>Incorrectas</span><strong id="final-incorrectas">0</strong></div>
+      </div>
+      <div id="zona-record"></div>
+      <div class="acciones">
+        <button type="button" class="btn" id="btn-jugar-otra">Jugar otra vez</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">     
+        <p>LukyPlay · Trabajo Práctico 1 - Informática General 2026 - TN</p>
+        <p>Alumnos: Marcela Toledo - André Palacios - Agustina Pol Diez</p>      
+        <p>Cátedra: Valeria Drelichman | Pedro Paleo | Leonardo Nadel | Norma Morales<br>
+            UNA Multimedia</p>
+  </footer>
+
+  <script src="js/comun.js"></script>
+  <script src="js/datos-arte.js"></script>
+  <script src="js/preguntas.js"></script>
+</body>
+</html>
