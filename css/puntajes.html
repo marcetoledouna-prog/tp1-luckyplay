@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LukyPlay | Puntajes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="encabezado">
+    <div class="encabezado-contenido">
+      <a class="marca" href="index.html"><img src="img/logo.svg" alt="">LukyPlay</a>
+      <nav class="menu">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="cartas.html">Cartas</a></li>
+          <li><a href="dados.html">Dados</a></li>
+          <li><a href="preguntas.html">Trivia</a></li>
+          <li><a class="activo" href="puntajes.html">Puntajes</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Ranking</h1>
+    <p>Los 10 mejores puntajes están en el salón de la fama: si tu puntaje es mayor que alguno de ellos, tu nombre quedará registrado en el ranking.</p>
+    <section class="panel">
+      <h2>Estadísticas</h2>
+      <div class="estado" id="estadisticas"></div>
+    </section>
+
+    <div class="grilla-puntajes" id="grilla-puntajes"></div>
+
+    <section class="panel">
+      <h2>Borrar récords</h2>
+      <p>Esta acción elimina todos los puntajes y estadísticas guardados en este navegador. No se puede deshacer.</p>
+      <div class="acciones" id="acciones-borrar">
+        <button type="button" class="btn btn-peligro" id="btn-borrar">Borrar todos los récords</button>
+      </div>
+      <div class="acciones oculto" id="confirmar-borrar">
+        <p class="mensaje mensaje-error">¿Seguro que querés borrar todo?</p>
+        <button type="button" class="btn btn-peligro" id="btn-confirmar">Sí, borrar</button>
+        <button type="button" class="btn btn-secundario" id="btn-cancelar">Cancelar</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+        <p>LukyPlay · Trabajo Práctico 1 - Informática General 2026 - TN</p>
+        <p>Alumnos: Marcela Toledo - André Palacios - Agustina Pol Diez</p>
+        <p>Cátedra: Valeria Drelichman | Pedro Paleo | Leonardo Nadel | Norma Morales<br>
+            UNA Artes Multimediales</p>
+  </footer>
+
+  <script src="js/comun.js"></script>
+  <script src="js/puntajes.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LukyPlay | Cartas - Duelo de Palos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="encabezado">
+    <div class="encabezado-contenido">
+      <a class="marca" href="index.html"><img src="img/logo.svg" alt="">LukyPlay</a>
+      <nav class="menu">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a class="activo" href="cartas.html">Cartas</a></li>
+          <li><a href="dados.html">Dados</a></li>
+          <li><a href="preguntas.html">Trivia</a></li>
+          <li><a href="puntajes.html">Puntajes</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+<main>
+    <h1>Cartas · Duelo de Palos</h1>
+
+    <div class="intro-juego">
+      <section class="panel">
+        <h2>Objetivo</h2>
+        <p>Un juego de cartas original de LukyPlay. Jugás contra la máquina durante <strong>8 rondas</strong>: en cada ronda los dos juegan una carta y gana la que mejor combine con la <strong>carta de mesa</strong>. Al final gana quien tenga más puntos.</p>
+        <h3>Cómo se juega una ronda</h3>
+        <ol class="reglas">
+          <li>Se da vuelta una carta de mesa.</li>
+          <li>Tocás una carta de tu mano (tenés 5) para jugarla. La máquina juega la suya.</li>
+          <li>Se calculan los puntos de las dos cartas. <strong>Quien saca más se lleva los puntos de las dos.</strong> Si empatan, cada uno suma los suyos.</li>
+          <li>Cada uno levanta una carta nueva del mazo.</li>
+        </ol>
+      </section>
+      <section class="panel">
+        <h2>Puntos de cada carta</h2>
+        <ul class="reglas">
+          <li>Valor de las cartas: As = 1, del 2 al 10 su número, J = 11, Q = 12, K = 13.</li>
+          <li><strong>Mismo palo</strong> que la carta de mesa: vale el <strong>doble</strong> de su número.</li>
+          <li><strong>Mismo color</strong> (rojo o negro) pero otro palo: vale <strong>su número</strong>.</li>
+          <li>Color distinto: vale <strong>0</strong>.</li>
+          <li><strong>Espejo:</strong> si tiene el mismo número que la carta de mesa, suma <strong>+10</strong>.</li>
+          <li><strong>Comodín:</strong> una vez por partida podés cambiar toda tu mano por 5 cartas nuevas.</li>
+          <li>Tu puntaje para el récord son tus puntos al final de la partida.</li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="panel">
+      <h2>Partida</h2>
+
+      <div class="estado">
+        <div class="estado-item"><span>Ronda</span><strong id="ronda">1 / 8</strong></div>
+        <div class="estado-item"><span>Tus puntos</span><strong id="puntos-jugador">0</strong></div>
+        <div class="estado-item"><span>Máquina</span><strong id="puntos-maquina">0</strong></div>
+        <div class="estado-item"><span>Cartas en el mazo</span><strong id="mazo-restante">52</strong></div>
+      </div>
+
+      <p class="mensaje" id="mensaje">Tocá una carta de tu mano para jugarla.</p>
+
+      <div class="mesa">
+        <div class="fila-mesa">
+          <div class="zona-mano">
+            <h3>Carta de mesa</h3>
+            <div class="mano" id="carta-mesa"></div>
+          </div>
+          <div class="zona-mano">
+            <h3>Tu jugada</h3>
+            <div class="mano" id="jugada-jugador"></div>
+          </div>
+          <div class="zona-mano">
+            <h3>Jugada de la máquina</h3>
+            <div class="mano" id="jugada-maquina"></div>
+          </div>
+        </div>
+        <div class="zona-mano">
+          <h3>Tu mano</h3>
+          <div class="mano" id="mano-jugador"></div>
+        </div>
+        <div class="zona-mano">
+          <h3>Mano de la máquina</h3>
+          <div class="mano mano-chica" id="mano-maquina"></div>
+        </div>
+      </div>
+
+      <div class="acciones">
+        <button type="button" class="btn btn-secundario" id="btn-cambiar">Comodín: cambiar mi mano</button>
+        <button type="button" class="btn oculto" id="btn-siguiente">Siguiente ronda</button>
+        <button type="button" class="btn oculto" id="btn-nueva">Nueva partida</button>
+      </div>
+
+      <div id="zona-final"></div>
+    </section>
+  </main>
+
+  <footer class="pie">
+        <p>LukyPlay · Trabajo Práctico 1 - Informática General 2026 - TN</p>
+        <p>Alumnos: Marcela Toledo - André Palacios - Agustina Pol Diez</p>
+        <p>Cátedra: Valeria Drelichman | Pedro Paleo | Leonardo Nadel | Norma Morales<br>
+            UNA Artes Multimediales</p>
+  </footer>
+
+  <script src="js/comun.js"></script>
+  <script src="js/cartas.js"></script>
+</body>
+</html>

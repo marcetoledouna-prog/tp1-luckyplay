@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280" width="200" height="280">
+<title>Dorso de carta</title>
+<defs><pattern id="p" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+<rect width="16" height="16" fill="#8e1f2f"/><rect width="8" height="16" fill="#a8293b"/></pattern></defs>
+<rect x="2" y="2" width="196" height="276" rx="14" fill="#fffdf7" stroke="#cfc6b0" stroke-width="3"/>
+<rect x="14" y="14" width="172" height="252" rx="8" fill="url(#p)"/>
+<circle cx="100" cy="140" r="40" fill="#fffdf7" stroke="#f2c14e" stroke-width="5"/>
+<text x="100" y="153" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="36" fill="#8e1f2f">LP</text>
+</svg>
