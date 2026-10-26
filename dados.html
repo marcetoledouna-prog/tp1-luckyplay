@@ -4,12 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LukyPlay | Dados - Blanco</title>
+  <meta name="description" content="Blanco: un juego de dados para 2 jugadores. Acercate al número que marca la máquina con tus tres dados.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body class="pagina-compacta">
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
   <header class="encabezado">
     <div class="encabezado-contenido">
       <a class="marca" href="index.html"><img src="img/logo-min.svg" alt="">LukyPlay</a>
@@ -17,7 +20,7 @@
         <ul>
           <li><a href="index.html">Inicio</a></li>
           <li><a href="cartas.html">Cartas</a></li>
-          <li><a class="activo" href="dados.html">Dados</a></li>
+          <li><a class="activo" aria-current="page" href="dados.html">Dados</a></li>
           <li><a href="preguntas.html">Trivia</a></li>
           <li><a href="puntajes.html">Puntajes</a></li>
           <li><a href="nosotros.html">Nosotros</a></li>
@@ -26,28 +29,28 @@
     </div>
   </header>
 
-  <main>
+  <main id="contenido">
     <!-- Cabecera compacta: el juego queda a la vista sin hacer scroll -->
     <section class="cabecera-juego">
       <div>
         <span class="sobretitulo">Juego de dados · 2 jugadores</span>
         <h1>Blanco</h1>
-        <p class="bajada">La máquina tira tres dados y marca un número. Dos jugadores intentan acertarle con los suyos, ronda tras ronda.</p>
+        <p class="bajada">La máquina tira tres dados y marca un número. Dos jugadores intentan igualarlo con los suyos.</p>
       </div>
       <button type="button" class="btn btn-secundario" id="btn-reglas">Cómo se juega</button>
     </section>
 
-    <section class="config-centrada" id="seccion-config">
+    <section class="panel" id="seccion-config">
       <h2>Jugadores</h2>
       <form id="form-config">
         <div class="config-jugadores">
           <div class="campo">
-            <label class="solo-lector" for="nombre-1">Nombre del jugador 1</label>
-            <input type="text" id="nombre-1" maxlength="15" placeholder="Nombre del jugador 1">
+            <label for="nombre-1">Jugador 1</label>
+            <input type="text" id="nombre-1" maxlength="15" placeholder="Nombre">
           </div>
           <div class="campo">
-            <label class="solo-lector" for="nombre-2">Nombre del jugador 2</label>
-            <input type="text" id="nombre-2" maxlength="15" placeholder="Nombre del jugador 2">
+            <label for="nombre-2">Jugador 2</label>
+            <input type="text" id="nombre-2" maxlength="15" placeholder="Nombre">
           </div>
         </div>
         <p class="campo-error" id="error-config"></p>
@@ -55,7 +58,8 @@
       </form>
     </section>
 
-    <section class="panel oculto" id="seccion-juego">
+    <section class="juego oculto" id="seccion-juego">
+      <h2 class="solo-lector">Partida</h2>
       <!-- Estado de la ronda y marcador de los jugadores, en una misma fila -->
       <div class="tablero-cabecera">
         <div class="estado">
@@ -66,29 +70,30 @@
         <div class="marcador" id="marcador"></div>
       </div>
 
-      <p class="mensaje" id="mensaje">La máquina está tirando los dados rojos...</p>
+      <p class="mensaje" id="mensaje" aria-live="polite">La máquina tira los dados rojos…</p>
 
       <div class="tablero-dados">
-      <div class="zona-dados zona-objetivo">
+      <div class="zona-dados">
         <h3 class="titulo-dados">Objetivo: <span id="objetivo">?</span></h3>
         <div class="fila-dados" id="dados-objetivo"></div>
       </div>
 
       <div class="zona-dados">
-        <h3 class="titulo-dados">Tu suma: <span id="suma">-</span></h3>
+        <h3 class="titulo-dados">Suma de <strong id="nombre-suma">-</strong>: <span id="suma">-</span></h3>
         <div class="fila-dados" id="zona-dados"></div>
       </div>
       </div>
-      <p class="ayuda-dados">Tocá un dado para guardarlo o soltarlo.</p>
+      <p class="ayuda-dados inactiva" id="ayuda-dados">Tocá un dado para guardarlo o soltarlo.</p>
 
       <div class="acciones">
         <button type="button" class="btn" id="btn-tirar">Tirar dados</button>
         <button type="button" class="btn btn-secundario" id="btn-plantarse">Plantarme</button>
         <button type="button" class="btn oculto" id="btn-siguiente">Siguiente turno</button>
         <button type="button" class="btn oculto" id="btn-nueva">Nueva partida</button>
+        <a class="btn btn-secundario oculto" id="btn-otro-juego" href="index.html">Elegir otro juego</a>
       </div>
 
-      <div id="zona-final"></div>
+      <div id="zona-final" aria-live="polite"></div>
     </section>
 
     <!-- Reglas en una ventana: se abren con el botón "Cómo se juega"
@@ -103,14 +108,14 @@
             <section class="panel">
               <span class="sobretitulo" id="titulo-objetivo">Objetivo</span>
               <h2>Acercate al número objetivo</h2>
-              <p class="lead">En cada ronda, la suma de 3 dados rojos es el objetivo. Cada jugador tira 3 dados blancos para igualarla. Después de 10 rondas, gana quien tenga más puntos.</p>
+              <p class="lead">Cada ronda, 3 dados rojos marcan el objetivo. Cada jugador tira 3 dados blancos para igualarlo. Tras 10 rondas, gana quien sume más.</p>
               <ul class="datos-juego"><li>2 jugadores</li><li>10 rondas</li><li>hasta 3 tiros por turno</li><li>3 vidas</li></ul>
               <h3>Cada turno</h3>
               <ol class="reglas">
-                <li>Presioná <strong>«Tirar dados»</strong>.</li>
-                <li>Tocá los dados que quieras <strong>guardar</strong>: quedan marcados y no se vuelven a tirar.</li>
+                <li>Tocá <strong>«Tirar dados»</strong>.</li>
+                <li>Tocá los dados que quieras <strong>guardar</strong>: no se vuelven a tirar.</li>
                 <li>Volvé a tirar el resto, hasta 3 tiros en total.</li>
-                <li>Cuando te guste la suma, presioná <strong>«Plantarme»</strong>. Después del tercer tiro te plantás solo.</li>
+                <li>Cuando te guste la suma, tocá <strong>«Plantarme»</strong>. En el tercer tiro te plantás solo.</li>
               </ol>
             </section>
             <section class="panel">
@@ -133,10 +138,10 @@
               </dl>
               <h3>Para tener en cuenta</h3>
               <ul class="notas">
-                <li>Los dos jugadores tienen el mismo objetivo. Primero juega el jugador 1.</li>
+                <li>Los dos juegan con el mismo objetivo; empieza el jugador 1.</li>
                 <li>Una ronda nunca suma menos de 0.</li>
                 <li>Sin vidas, quedás afuera y el otro jugador sigue solo.</li>
-                <li>La partida termina después de 10 rondas o cuando los dos se quedan sin vidas.</li>
+                <li>La partida termina a las 10 rondas o cuando los dos se quedan sin vidas.</li>
               </ul>
             </section>
           </div>

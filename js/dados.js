@@ -40,6 +40,8 @@ const spanTiro = document.querySelector('#tiro');
 const divMarcador = document.querySelector('#marcador');
 const spanObjetivo = document.querySelector('#objetivo');
 const spanSuma = document.querySelector('#suma');
+const spanNombreSuma = document.querySelector('#nombre-suma');
+const ayudaDados = document.querySelector('#ayuda-dados');
 const mensaje = document.querySelector('#mensaje');
 const divObjetivo = document.querySelector('#dados-objetivo');
 const zonaDados = document.querySelector('#zona-dados');
@@ -47,6 +49,7 @@ const btnTirar = document.querySelector('#btn-tirar');
 const btnPlantarse = document.querySelector('#btn-plantarse');
 const btnSiguiente = document.querySelector('#btn-siguiente');
 const btnNueva = document.querySelector('#btn-nueva');
+const btnOtroJuego = document.querySelector('#btn-otro-juego');
 const zonaFinal = document.querySelector('#zona-final');
 
 // ---------- Configuración de los jugadores ----------
@@ -64,7 +67,7 @@ formConfig.addEventListener('submit', (e) => {
     return;
   }
   if (nombre1 === nombre2) {
-    errorConfig.innerText = 'Los dos jugadores tienen que tener nombres distintos.';
+    errorConfig.innerText = 'Los nombres tienen que ser distintos.';
     return;
   }
   errorConfig.innerText = '';
@@ -131,20 +134,27 @@ function crearDados() {
 }
 
 function dibujarDados() {
+  // Solo se pueden guardar dados entre el primer y el último tiro
+  const sePuedeGuardar = !(tiro === 0 || tiro === TIROS_POR_TURNO || girando || turnoTerminado);
+
   for (let i = 0; i < CANTIDAD_DADOS; i++) {
     const boton = botonesDados[i];
-    let textoAlt = `Dado ${i + 1}: ${dados[i]}`;
 
     if (retenidos[i]) {
       boton.classList.add('retenido');
-      textoAlt += ' (guardado)';
     } else {
       boton.classList.remove('retenido');
     }
-    boton.innerHTML = `<img src="img/dados/dado-${dados[i]}.svg" alt="${textoAlt}">`;
+    // aria-pressed le dice al lector de pantalla si el dado está guardado
+    boton.setAttribute('aria-pressed', retenidos[i]);
+    boton.innerHTML = `<img src="img/dados/dado-${dados[i]}.svg" alt="Dado ${i + 1}: ${dados[i]}">`;
+    boton.disabled = !sePuedeGuardar;
+  }
 
-    // Solo se pueden guardar dados entre el primer y el último tiro
-    boton.disabled = tiro === 0 || tiro === TIROS_POR_TURNO || girando || turnoTerminado;
+  if (sePuedeGuardar) {
+    ayudaDados.classList.remove('inactiva');
+  } else {
+    ayudaDados.classList.add('inactiva');
   }
   spanSuma.innerText = tiro === 0 ? '-' : sumar(dados);
 }
@@ -177,7 +187,9 @@ function dibujarMarcador() {
 
 function actualizarEstado() {
   spanRonda.innerText = `${ronda} / ${TOTAL_RONDAS}`;
-  spanTurno.innerText = turno === -1 ? '-' : jugadores[turno].nombre;
+  const nombreTurno = turno === -1 ? '-' : jugadores[turno].nombre;
+  spanTurno.innerText = nombreTurno;
+  spanNombreSuma.innerText = nombreTurno;
   spanTiro.innerText = `${tiro} / ${TIROS_POR_TURNO}`;
   dibujarMarcador();
 }
@@ -208,7 +220,7 @@ function nuevaRonda() {
   spanObjetivo.innerText = '?';
   actualizarEstado();
   dibujarDados();
-  mostrarMensaje('La máquina está tirando los dados rojos...');
+  mostrarMensaje('La máquina tira los dados rojos…');
 
   let vueltas = 0;
   const animacion = setInterval(() => {
@@ -238,7 +250,9 @@ function empezarTurno(posicion) {
   btnSiguiente.classList.add('oculto');
   actualizarEstado();
   dibujarDados();
-  mostrarMensaje(`Turno de ${jugadores[turno].nombre}. El objetivo es ${objetivo}: presioná «Tirar dados».`);
+  mostrarMensaje(`Turno de ${jugadores[turno].nombre}. Objetivo: ${objetivo}. Tocá «Tirar dados».`);
+  // Así se puede tirar con Enter sin buscar el botón
+  btnTirar.focus();
 }
 
 function alternarRetenido(posicion) {
@@ -264,7 +278,7 @@ function tirarDados() {
     }
   }
   if (todosGuardados) {
-    mostrarMensaje('Guardaste los 3 dados: soltá al menos uno para volver a tirar, o plantate.', 'error');
+    mostrarMensaje('Guardaste los 3 dados. Soltá uno para tirar de nuevo, o plantate.', 'error');
     return;
   }
 
@@ -306,7 +320,7 @@ function terminarTirada() {
   } else {
     btnTirar.disabled = false;
     btnPlantarse.disabled = false;
-    mostrarMensaje(`${jugadores[turno].nombre}: tu suma es ${suma} y el objetivo ${objetivo}. Podés plantarte o volver a tirar (cuesta ${COSTO_TIRO_EXTRA} puntos).`);
+    mostrarMensaje(`${jugadores[turno].nombre}: sumás ${suma} y el objetivo es ${objetivo}. Plantate o volvé a tirar (−${COSTO_TIRO_EXTRA} puntos).`);
   }
 }
 
@@ -371,18 +385,18 @@ function plantarse() {
   const ganados = Math.max(0, base + bonus - costo);
   jugador.puntos += ganados;
 
-  let texto = `${jugador.nombre}: suma ${suma}, objetivo ${objetivo} (diferencia ${diferencia}): ${base} puntos.${textoBonus}`;
+  let texto = `${jugador.nombre} sumó ${suma} (objetivo ${objetivo}, diferencia ${diferencia}): ${base} puntos.${textoBonus}`;
   if (costo > 0) {
-    texto += ` Tiros extra: -${costo}.`;
+    texto += ` Tiros extra: −${costo}.`;
   }
-  texto += ` Total del turno: ${ganados}.`;
+  texto += ` Total: ${ganados}.`;
 
   if (diferencia >= 4) {
     jugador.vidas--;
     if (jugador.vidas === 0) {
-      mostrarMensaje(`${texto} Perdió su última vida y queda afuera.`, 'error');
+      mostrarMensaje(`${texto} Sin vidas: queda afuera.`, 'error');
     } else {
-      mostrarMensaje(`${texto} Se alejó mucho: pierde una vida.`, 'error');
+      mostrarMensaje(`${texto} Quedó lejos: pierde una vida.`, 'error');
     }
   } else if (diferencia === 0) {
     mostrarMensaje(`¡En el blanco! ${texto}`, 'ok');
@@ -430,6 +444,7 @@ function empezarPartida() {
   seccionJuego.classList.remove('oculto');
   zonaFinal.replaceChildren();
   btnNueva.classList.add('oculto');
+  btnOtroJuego.classList.add('oculto');
   crearDados();
   nuevaRonda();
 }
@@ -439,6 +454,7 @@ function terminarPartida() {
   btnPlantarse.disabled = true;
   btnSiguiente.classList.add('oculto');
   btnNueva.classList.remove('oculto');
+  btnOtroJuego.classList.remove('oculto');
   turno = -1;
   actualizarEstado();
   contarPartida('dados');
@@ -456,7 +472,7 @@ function terminarPartida() {
   resumen.classList.add('mensaje');
   resumen.classList.add('mensaje-ok');
   if (j1.puntos === j2.puntos) {
-    resumen.innerText = `¡Empate! Los dos terminaron con ${j1.puntos} puntos.`;
+    resumen.innerText = `¡Empate a ${j1.puntos} puntos!`;
   } else {
     resumen.innerText = `¡${ganador.nombre} gana la partida! ${ganador.puntos} a ${perdedor.puntos}.`;
   }
@@ -477,4 +493,5 @@ btnNueva.addEventListener('click', () => {
   // Vuelve al formulario para poder cambiar los jugadores
   seccionJuego.classList.add('oculto');
   seccionConfig.classList.remove('oculto');
+  inputNombre1.focus();
 });

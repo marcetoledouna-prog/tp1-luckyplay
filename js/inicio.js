@@ -11,8 +11,8 @@ const juegosPortada = [
 juegosPortada.forEach((juego) => {
   const mejor = mejorRecord(juego.clave);
   if (mejor === null) {
-    juego.parrafo.innerText = 'Récord: todavía nadie jugó. ¡Sé el primero!';
+    juego.parrafo.innerText = 'Sin récord todavía';
   } else {
-    juego.parrafo.innerText = `Récord: ${mejor.puntaje} ${juego.unidad} (${mejor.nombre})`;
+    juego.parrafo.innerText = `Récord: ${mejor.puntaje} ${juego.unidad} · ${mejor.nombre}`;
   }
 });

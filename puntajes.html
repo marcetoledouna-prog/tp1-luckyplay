@@ -4,12 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LukyPlay | Puntajes</title>
+  <meta name="description" content="Ranking de LukyPlay: los 10 mejores puntajes de cada juego y las partidas jugadas.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body class="pagina-compacta">
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
   <header class="encabezado">
     <div class="encabezado-contenido">
       <a class="marca" href="index.html"><img src="img/logo-min.svg" alt="">LukyPlay</a>
@@ -19,46 +22,33 @@
           <li><a href="cartas.html">Cartas</a></li>
           <li><a href="dados.html">Dados</a></li>
           <li><a href="preguntas.html">Trivia</a></li>
-          <li><a class="activo" href="puntajes.html">Puntajes</a></li>
+          <li><a class="activo" aria-current="page" href="puntajes.html">Puntajes</a></li>
           <li><a href="nosotros.html">Nosotros</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main id="contenido">
     <section class="cabecera-juego">
       <div>
-        <span class="sobretitulo">Salón de la fama</span>
-        <h1>Ranking</h1>
-        <p class="bajada">Los 10 mejores puntajes de cada juego. Si superás alguno, tu nombre queda registrado en el ranking.</p>
+        <span class="sobretitulo">Ranking</span>
+        <h1>Puntajes</h1>
+        <p class="bajada">Los 10 mejores de cada juego, guardados en este navegador. Superá alguno y entrás en la lista.</p>
       </div>
     </section>
 
-    <section class="bloque">
-      <div class="bloque-titulo">
-        <span class="sobretitulo">01 · Top 10</span>
-        <h2>Mejores puntajes</h2>
-      </div>
-      <div class="grilla-puntajes" id="grilla-puntajes"></div>
-    </section>
+    <!-- Un panel por juego: partidas jugadas, promedio y top 10 (los arma puntajes.js) -->
+    <div class="grilla-puntajes" id="grilla-puntajes"></div>
 
-    <section class="bloque">
-      <div class="bloque-titulo">
-        <span class="sobretitulo">02 · Estadísticas</span>
-        <h2 id="titulo-estadisticas">Partidas jugadas</h2>
-      </div>
-      <div class="estado" id="estadisticas"></div>
-    </section>
-
-    <section class="bloque">
-      <div class="bloque-titulo">
-        <span class="sobretitulo">03 · Datos</span>
+    <!-- Borrar récords: separado del ranking y con confirmación -->
+    <section class="zona-borrar">
+      <div>
         <h2 id="titulo-borrar">Borrar récords</h2>
-        <p class="bajada">Esta acción elimina todos los puntajes y estadísticas guardados en este navegador. No se puede deshacer.</p>
+        <p class="bajada">Borra los puntajes y las partidas de este navegador. No se puede deshacer.</p>
       </div>
       <div class="acciones" id="acciones-borrar">
-        <button type="button" class="btn btn-peligro" id="btn-borrar">Borrar todos los récords</button>
+        <button type="button" class="btn btn-peligro" id="btn-borrar">Borrar todo</button>
       </div>
       <div class="acciones oculto" id="confirmar-borrar">
         <p class="mensaje mensaje-error">¿Seguro que querés borrar todo?</p>
@@ -76,7 +66,7 @@
       </div>
       <div>
         <span class="pie-titulo">Alumnos</span>
-        <p>Marcela Toledo<br>André Palacios<br>Agustina Pol Diaz</p>
+        <p>Marcela Toledo<br>André Palacios<br>Agustina Pol Diez</p>
       </div>
       <div>
         <span class="pie-titulo">Cátedra</span>

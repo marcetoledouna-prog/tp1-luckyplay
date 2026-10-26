@@ -37,6 +37,7 @@ const zonaFinal = document.querySelector('#zona-final');
 const btnCambiar = document.querySelector('#btn-cambiar');
 const btnSiguiente = document.querySelector('#btn-siguiente');
 const btnNueva = document.querySelector('#btn-nueva');
+const btnOtroJuego = document.querySelector('#btn-otro-juego');
 
 // ---------- Mazo ----------
 
@@ -187,7 +188,7 @@ function nuevaRonda() {
   btnSiguiente.classList.add('oculto');
   btnCambiar.disabled = comodinUsado;
   actualizarEstado();
-  mostrarMensaje(`Ronda ${ronda}: la carta de mesa es ${cartaMesa.valor} de ${cartaMesa.palo}. Tocá una carta de tu mano para jugarla.`);
+  mostrarMensaje(`Ronda ${ronda}. En la mesa: ${cartaMesa.valor} de ${cartaMesa.palo}. Elegí una carta de tu mano.`);
 }
 
 function jugarCarta(posicion) {
@@ -205,7 +206,7 @@ function jugarCarta(posicion) {
   const cartaOculta = dibujarCarta(divJugadaMaquina, cartaMaquina, true);
   dibujarManoJugador();
   dibujarManoMaquina();
-  mostrarMensaje('La máquina está eligiendo su carta...');
+  mostrarMensaje('La máquina elige su carta…');
 
   // Después de un momento se da vuelta la carta de la máquina
   setTimeout(() => {
@@ -217,18 +218,18 @@ function jugarCarta(posicion) {
 function resolverRonda(cartaJugador, cartaMaquina) {
   const pj = puntosCarta(cartaJugador);
   const pm = puntosCarta(cartaMaquina);
-  const detalle = `Tu carta vale ${pj} y la de la máquina ${pm}.`;
+  const detalle = `Tu carta vale ${pj}; la de la máquina, ${pm}.`;
 
   if (pj > pm) {
     puntosJugador += pj + pm;
-    mostrarMensaje(`${detalle} ¡Ganaste la ronda y te llevás ${pj + pm} puntos!`, 'ok');
+    mostrarMensaje(`${detalle} ¡Ganás la ronda: +${pj + pm} puntos!`, 'ok');
   } else if (pm > pj) {
     puntosMaquina += pj + pm;
-    mostrarMensaje(`${detalle} La máquina gana la ronda y se lleva ${pj + pm} puntos.`, 'error');
+    mostrarMensaje(`${detalle} La máquina gana la ronda: +${pj + pm} puntos.`, 'error');
   } else {
     puntosJugador += pj;
     puntosMaquina += pm;
-    mostrarMensaje(`${detalle} Empate: cada uno suma sus puntos.`);
+    mostrarMensaje(`${detalle} Empate: cada una suma los suyos.`);
   }
 
   // Cada uno levanta una carta nueva
@@ -246,9 +247,15 @@ function resolverRonda(cartaJugador, cartaMaquina) {
   }
 }
 
+// El botón que se tocó desaparece: el foco pasa a la primera carta de la mano
+function enfocarMano() {
+  divManoJugador.querySelector('button').focus();
+}
+
 function siguienteRonda() {
   ronda++;
   nuevaRonda();
+  enfocarMano();
 }
 
 // Comodín: cambia toda la mano por 5 cartas nuevas (una vez por partida)
@@ -258,11 +265,12 @@ function cambiarMano() {
   }
   comodinUsado = true;
   btnCambiar.disabled = true;
+  btnCambiar.innerText = 'Comodín usado';
   manoJugador = [];
   completarMano(manoJugador);
   dibujarManoJugador();
   actualizarEstado();
-  mostrarMensaje('Cambiaste tu mano. Ya no podés volver a usar el comodín.');
+  mostrarMensaje('Mano nueva. Ya usaste el comodín.');
 }
 
 // ---------- Fin de partida ----------
@@ -271,6 +279,7 @@ function terminarPartida() {
   btnCambiar.disabled = true;
   btnSiguiente.classList.add('oculto');
   btnNueva.classList.remove('oculto');
+  btnOtroJuego.classList.remove('oculto');
   contarPartida('cartas');
 
   const resumen = document.createElement('p');
@@ -286,7 +295,7 @@ function terminarPartida() {
     resumen.innerText = `La máquina ganó el duelo: ${puntosMaquina} a ${puntosJugador}.`;
   } else {
     resultado = 'empate';
-    resumen.innerText = `¡Empate! Los dos terminaron con ${puntosJugador} puntos.`;
+    resumen.innerText = `¡Empate a ${puntosJugador} puntos!`;
   }
   zonaFinal.append(resumen);
 
@@ -306,9 +315,11 @@ function nuevaPartida() {
   puntosJugador = 0;
   puntosMaquina = 0;
   comodinUsado = false;
+  btnCambiar.innerText = 'Comodín: cambiar mano';
 
   zonaFinal.replaceChildren();
   btnNueva.classList.add('oculto');
+  btnOtroJuego.classList.add('oculto');
   nuevaRonda();
 }
 
@@ -316,7 +327,10 @@ function nuevaPartida() {
 
 btnCambiar.addEventListener('click', cambiarMano);
 btnSiguiente.addEventListener('click', siguienteRonda);
-btnNueva.addEventListener('click', nuevaPartida);
+btnNueva.addEventListener('click', () => {
+  nuevaPartida();
+  enfocarMano();
+});
 
 // Al cargar la página se prepara la primera partida
 nuevaPartida();

@@ -4,12 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LukyPlay | Nosotros</title>
+  <meta name="description" content="Quiénes hicimos LukyPlay, cómo lo armamos y con qué tecnologías.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
   <header class="encabezado">
     <div class="encabezado-contenido">
       <a class="marca" href="index.html"><img src="img/logo-min.svg" alt="">LukyPlay</a>
@@ -20,18 +23,18 @@
           <li><a href="dados.html">Dados</a></li>
           <li><a href="preguntas.html">Trivia</a></li>
           <li><a href="puntajes.html">Puntajes</a></li>
-          <li><a class="activo" href="nosotros.html">Nosotros</a></li>
+          <li><a class="activo" aria-current="page" href="nosotros.html">Nosotros</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main id="contenido">
     <!-- Cabecera: título grande y cifras del proyecto -->
     <section class="cabecera">
       <span class="sobretitulo">Nosotros</span>
-      <h1>Tres juegos clásicos, hechos desde cero.</h1>
-      <p class="bajada">LukyPlay reúne tres juegos clásicos —cartas, dados y preguntas— con reglas propias. Lo hicimos como Trabajo Práctico 1 de Informática General.</p>
+      <h1>Tres juegos originales, hechos desde cero.</h1>
+      <p class="bajada">Cartas, dados y preguntas, con reglas propias. Lo hicimos para el Trabajo Práctico 1 de Informática General.</p>
       <ul class="cifras">
         <li><strong>3</strong><span>juegos originales</span></li>
         <li><strong>65</strong><span>ilustraciones SVG propias</span></li>
@@ -57,7 +60,7 @@
           <p>Estudiante de Artes Multimediales</p>
         </li>
         <li class="integrante">
-          <div class="avatar">AD</div>
+          <div class="avatar">APD</div>
           <h3>Agustina Pol Diez</h3>
           <p>Estudiante de Artes Multimediales</p>
         </li>
@@ -73,27 +76,27 @@
         <li>
           <span class="paso-num">01</span>
           <h3>Planificamos</h3>
-          <p>Elegimos los tres juegos y definimos sus reglas, sus puntajes y cuándo termina cada partida.</p>
+          <p>Elegimos los juegos y definimos reglas, puntajes y cuándo termina cada partida.</p>
         </li>
         <li>
           <span class="paso-num">02</span>
           <h3>Estructuramos</h3>
-          <p>Armamos las páginas en HTML y una sola hoja de estilos para todo el sitio.</p>
+          <p>Páginas en HTML y una sola hoja de estilos para todo el sitio.</p>
         </li>
         <li>
           <span class="paso-num">03</span>
           <h3>Programamos</h3>
-          <p>Escribimos cada juego en JavaScript, más las funciones compartidas: récords y mezcla de mazos.</p>
+          <p>Cada juego en JavaScript, más funciones compartidas: récords y mezcla de mazos.</p>
         </li>
         <li>
           <span class="paso-num">04</span>
           <h3>Probamos</h3>
-          <p>Jugamos cada juego en casos normales y en situaciones no previstas.</p>
+          <p>Jugamos cada juego, también en casos raros.</p>
         </li>
         <li>
           <span class="paso-num">05</span>
           <h3>Documentamos</h3>
-          <p>Registramos las decisiones técnicas y la declaración de uso de IA.</p>
+          <p>Anotamos las decisiones técnicas y la declaración de uso de IA.</p>
         </li>
       </ol>
     </section>
@@ -102,7 +105,7 @@
       <div class="bloque-titulo">
         <span class="sobretitulo">03 · Arquitectura</span>
         <h2 id="titulo-mapa">Mapa del sitio</h2>
-        <p class="bajada">Cada juego es una página con su propio script. Todo lo compartido vive en la base: récords, estilos e interacción.</p>
+        <p class="bajada">Cada juego es una página con su propio script. Lo compartido —récords, estilos e interacción— está en la base.</p>
       </div>
 
       <!-- Diagrama: cada columna va de la página a sus datos;
@@ -147,11 +150,18 @@
       <ul class="stack">
         <li><span class="mapa-tipo">Base</span><strong>HTML5, CSS3 y JavaScript</strong><p>Sin frameworks. Maquetado con Flexbox y Grid.</p></li>
         <li><span class="mapa-tipo">Datos</span><strong>localStorage y JSON</strong><p>Récords y estadísticas guardados en el navegador.</p></li>
-        <li><span class="mapa-tipo">API</span><strong>Wikipedia en español</strong><p>Imágenes y datos de la Trivia, vía la <a href="https://es.wikipedia.org/api/rest_v1/" target="_blank">API pública</a>.</p></li>
+        <li><span class="mapa-tipo">API</span><strong>Wikipedia en español</strong><p>Imágenes y datos de la Trivia, vía la <a href="https://es.wikipedia.org/api/rest_v1/" target="_blank" rel="noopener">API pública<span class="solo-lector"> (se abre en otra pestaña)</span></a>.</p></li>
         <li><span class="mapa-tipo">Gráfica</span><strong>Ilustraciones propias</strong><p>Cartas, dados, íconos y logo dibujados en SVG.</p></li>
         <li><span class="mapa-tipo">Equipo</span><strong>Git y GitHub</strong><p>Trabajo colaborativo y publicación en GitHub Pages.</p></li>
         <li><span class="mapa-tipo">Tipografía</span><strong>Geist y Geist Mono</strong><p>Desde Google Fonts.</p></li>
       </ul>
+    </section>
+
+    <!-- Cierre: después de conocer el proyecto, la invitación a jugar -->
+    <section class="bloque cierre">
+      <h2 id="titulo-cierre">¿Jugamos?</h2>
+      <p class="bajada">Elegí uno de los tres juegos y empezá, sin instalar nada.</p>
+      <a class="btn" href="index.html">Elegir un juego</a>
     </section>
   </main>
 
@@ -163,7 +173,7 @@
       </div>
       <div>
         <span class="pie-titulo">Alumnos</span>
-        <p>Marcela Toledo<br>André Palacios<br>Agustina Pol Diaz</p>
+        <p>Marcela Toledo<br>André Palacios<br>Agustina Pol Diez</p>
       </div>
       <div>
         <span class="pie-titulo">Cátedra</span>

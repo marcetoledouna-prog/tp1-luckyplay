@@ -144,9 +144,9 @@ function mostrarFormularioRecord(contenedor, juego, puntaje, detalle, nombreSuge
     aviso.classList.add('mensaje');
     aviso.classList.add('mensaje-ok');
     if (puesto > 0) {
-      aviso.innerHTML = `¡Guardado! Quedaste en el puesto ${puesto}. <a href="puntajes.html">Ver tabla de puntajes</a>`;
+      aviso.innerHTML = `¡Guardado! Quedaste en el puesto ${puesto}. <a href="puntajes.html">Ver puntajes</a>`;
     } else {
-      aviso.innerHTML = `Puntaje registrado, pero no alcanzó para entrar al top ${MAX_PUESTOS}. <a href="puntajes.html">Ver tabla de puntajes</a>`;
+      aviso.innerHTML = `No alcanzó para entrar al top ${MAX_PUESTOS}. <a href="puntajes.html">Ver puntajes</a>`;
     }
     form.replaceWith(aviso);
   });

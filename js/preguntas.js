@@ -37,8 +37,6 @@ const secciones = [
 ];
 
 const formConfig = document.querySelector('#form-config');
-const selectModo = document.querySelector('#modo');
-const selectCantidad = document.querySelector('#cantidad');
 const textoCargando = document.querySelector('#texto-cargando');
 const textoError = document.querySelector('#texto-error');
 
@@ -49,6 +47,7 @@ const spanTiempo = document.querySelector('#tiempo');
 const barraTiempo = document.querySelector('#barra-tiempo');
 const divImagen = document.querySelector('#pregunta-imagen');
 const chipTipo = document.querySelector('#chip-tipo');
+const seccionJuego = document.querySelector('#seccion-juego');
 const textoPregunta = document.querySelector('#texto-pregunta');
 const textoPista = document.querySelector('#pista');
 const divOpciones = document.querySelector('#opciones');
@@ -160,14 +159,14 @@ async function pedirPregunta(item) {
 // Si alguna página falla, se pasa a la siguiente del pozo.
 async function cargarPreguntas() {
   mostrarSeccion('cargando');
-  const cantidad = Number(selectCantidad.value);
-  const pozo = armarPozo(selectModo.value);
+  const cantidad = Number(formConfig.elements.cantidad.value);
+  const pozo = armarPozo(formConfig.elements.modo.value);
   preguntas = [];
 
   let posicion = 0;
   let errores = 0;
   while (preguntas.length < cantidad && posicion < pozo.length) {
-    textoCargando.innerText = `Buscando obras y artistas en Wikipedia... (${preguntas.length} de ${cantidad})`;
+    textoCargando.innerText = `Buscando obras y artistas en Wikipedia… (${preguntas.length} de ${cantidad})`;
     try {
       const pregunta = await pedirPregunta(pozo[posicion]);
       if (pregunta !== null) {
@@ -184,7 +183,7 @@ async function cargarPreguntas() {
   }
 
   if (preguntas.length === 0) {
-    mostrarError('No se pudo conectar con Wikipedia. Revisá tu conexión a internet y volvé a intentar.');
+    mostrarError('No se pudo conectar con Wikipedia. Revisá tu conexión y reintentá.');
   } else {
     empezarPartida();
   }
@@ -204,6 +203,7 @@ function empezarPartida() {
   correctas = 0;
   incorrectas = 0;
   comodinUsado = false;
+  btnComodin.innerText = 'Comodín 50:50';
   mostrarSeccion('juego');
   mostrarPregunta();
 }
@@ -241,7 +241,13 @@ function mostrarPregunta() {
     const boton = document.createElement('button');
     boton.type = 'button';
     boton.classList.add('opcion');
-    boton.innerText = pregunta.opciones[i];
+    // El número de la opción es también su atajo de teclado
+    const tecla = document.createElement('span');
+    tecla.classList.add('opcion-tecla');
+    tecla.setAttribute('aria-hidden', 'true');
+    tecla.innerText = i + 1;
+    boton.setAttribute('aria-keyshortcuts', i + 1);
+    boton.append(tecla, pregunta.opciones[i]);
     boton.addEventListener('click', () => {
       responder(i);
     });
@@ -255,12 +261,20 @@ function mostrarPregunta() {
   btnComodin.disabled = comodinUsado;
   actualizarEstado();
   iniciarTemporizador();
+  // El foco pasa a la pregunta: el lector de pantalla la lee y con Tab se llega a las opciones
+  textoPregunta.focus();
 }
 
 // ---------- Temporizador ----------
 
 function iniciarTemporizador() {
   tiempoRestante = SEGUNDOS_POR_PREGUNTA;
+  // La barra vuelve llena sin transición. Leer offsetWidth obliga al navegador
+  // a dibujarla llena antes de que empiece a vaciarse.
+  barraTiempo.classList.add('sin-transicion');
+  barraTiempo.style.width = '100%';
+  barraTiempo.offsetWidth;
+  barraTiempo.classList.remove('sin-transicion');
   dibujarTiempo();
   clearInterval(temporizador);
   temporizador = setInterval(() => {
@@ -275,7 +289,9 @@ function iniciarTemporizador() {
 
 function dibujarTiempo() {
   spanTiempo.innerText = tiempoRestante;
-  barraTiempo.style.width = `${(tiempoRestante / SEGUNDOS_POR_PREGUNTA) * 100}%`;
+  // La barra apunta al segundo siguiente: con la transición de 1 s llega justo cuando cambia el número
+  const proximoSegundo = Math.max(tiempoRestante - 1, 0);
+  barraTiempo.style.width = `${(proximoSegundo / SEGUNDOS_POR_PREGUNTA) * 100}%`;
   if (tiempoRestante <= 5) {
     barraTiempo.classList.add('alerta');
   } else {
@@ -291,7 +307,7 @@ function tiempoAgotado() {
   vidas--;
   incorrectas++;
   marcarOpciones(-1);
-  mostrarMensaje('¡Se terminó el tiempo! Perdiste una vida.', 'error');
+  mostrarMensaje('¡Se acabó el tiempo! Perdiste una vida.', 'error');
   prepararSiguiente();
 }
 
@@ -311,11 +327,11 @@ function responder(elegida) {
     const ganados = PUNTOS_ACIERTO + tiempoRestante;
     puntos += ganados;
     correctas++;
-    mostrarMensaje(`¡Correcto! +${ganados} puntos (${PUNTOS_ACIERTO} por acertar y ${tiempoRestante} por el tiempo).`, 'ok');
+    mostrarMensaje(`¡Correcto! +${ganados} puntos (${PUNTOS_ACIERTO} por acertar + ${tiempoRestante} por tiempo).`, 'ok');
   } else {
     vidas--;
     incorrectas++;
-    mostrarMensaje(`Incorrecto. La respuesta era ${pregunta.opciones[pregunta.correcta]}. Perdiste una vida.`, 'error');
+    mostrarMensaje(`Incorrecto: era ${pregunta.opciones[pregunta.correcta]}. Perdiste una vida.`, 'error');
   }
   prepararSiguiente();
 }
@@ -349,9 +365,10 @@ function prepararSiguiente() {
   btnSiguiente.focus();
 }
 
+// Primero se muestra y después se cambia el texto, así el lector de pantalla lo anuncia (aria-live)
 function mostrarMensaje(texto, tipo) {
-  mensaje.innerText = texto;
   mensaje.classList.remove('oculto');
+  mensaje.innerText = texto;
   mensaje.classList.remove('mensaje-ok');
   mensaje.classList.remove('mensaje-error');
   mensaje.classList.add(tipo === 'ok' ? 'mensaje-ok' : 'mensaje-error');
@@ -364,6 +381,7 @@ function usarComodin() {
   }
   comodinUsado = true;
   btnComodin.disabled = true;
+  btnComodin.innerText = 'Comodín usado';
 
   const correcta = preguntas[actual].correcta;
 
@@ -399,6 +417,7 @@ function terminarPartida() {
   clearInterval(temporizador);
   contarPartida('preguntas');
   mostrarSeccion('final');
+  document.querySelector('#titulo-final').focus();
 
   finalPuntos.innerText = puntos;
   finalCorrectas.innerText = `${correctas} / ${preguntas.length}`;
@@ -433,6 +452,21 @@ document.querySelector('#btn-volver-config').addEventListener('click', () => {
 });
 document.querySelector('#btn-jugar-otra').addEventListener('click', () => {
   mostrarSeccion('config');
+  document.querySelector('#titulo-config').focus();
+});
+
+// Atajo de teclado: las teclas 1 a 4 eligen la opción con ese número
+document.addEventListener('keydown', (e) => {
+  if (seccionJuego.classList.contains('oculto') || respondida || ventanaReglas.open) {
+    return;
+  }
+  if (e.ctrlKey || e.metaKey || e.altKey) {
+    return;
+  }
+  const posicion = Number(e.key) - 1;
+  if (posicion >= 0 && posicion < botonesOpciones.length && !botonesOpciones[posicion].disabled) {
+    responder(posicion);
+  }
 });
 btnComodin.addEventListener('click', usarComodin);
 btnSiguiente.addEventListener('click', siguiente);

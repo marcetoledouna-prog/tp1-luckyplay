@@ -20,15 +20,15 @@
 
 /* ---------- 0. Tokens ---------- */
 :root {
-  --bg: #09090b;
-  --surface: #111113;
-  --surface-2: #19191c;
+  --bg: #141416;
+  --surface: #1b1b1e;
+  --surface-2: #232327;
   --line: rgba(255, 255, 255, 0.07);
   --line-strong: rgba(255, 255, 255, 0.14);
 
   --text: #f4f4f5;
   --muted: #a1a1aa;
-  --faint: #52525b;
+  --faint: #8b8b94;
   --accent: #fafafa;
   --accent-soft: rgba(255, 255, 255, 0.08);
   --accent-ink: #09090b;
@@ -81,7 +81,7 @@ body {
   display: flex;
   flex-direction: column;
   font-family: var(--font);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--text);
   background-color: var(--bg);
@@ -148,6 +148,28 @@ img {
 }
 
 /* ---------- 2. Estructura ---------- */
+/* Link para saltar el menú con el teclado: queda fuera de la pantalla hasta que recibe el foco */
+.saltar {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: calc(var(--z-header) + 1);
+  padding: 10px 18px;
+  border-radius: 999px;
+  background-color: var(--accent);
+  font-weight: 500;
+}
+
+a.saltar:link,
+a.saltar:visited {
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+
+.saltar:focus {
+  top: 12px;
+}
+
 .encabezado {
   position: sticky;
   top: 0;
@@ -159,7 +181,7 @@ img {
 
 /* Al bajar, el header gana fondo translúcido y una línea */
 .encabezado.is-scrolled {
-  background-color: rgba(9, 9, 11, 0.72);
+  background-color: rgba(20, 20, 22, 0.72);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   backdrop-filter: blur(16px) saturate(140%);
   border-bottom-color: var(--line);
@@ -212,7 +234,7 @@ a.marca:visited {
   gap: 2px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background-color: rgba(17, 17, 19, 0.6);
+  background-color: rgba(27, 27, 30, 0.6);
 }
 
 .menu a:link,
@@ -238,6 +260,29 @@ a.marca:visited {
   background-color: var(--accent);
 }
 
+/* En celular el menú queda en una sola fila, debajo de la marca, y se desliza de costado */
+@media (max-width: 720px) {
+  .menu {
+    width: 100%;
+  }
+
+  .menu ul {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .menu li {
+    flex: 0 0 auto;
+  }
+
+  /* Más alto para que sea fácil de tocar con el dedo */
+  .menu a:link,
+  .menu a:visited {
+    padding: 10px 12px;
+  }
+}
+
 main {
   flex: 1;
   width: 100%;
@@ -250,7 +295,7 @@ main {
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.85rem;
-  padding: 48px 24px 56px;
+  padding: 48px 0 56px;   /* el margen de los costados lo pone .pie-contenido, igual que el main */
 }
 
 /* Marca, alumnos y cátedra en columnas; en celular, una debajo de la otra */
@@ -290,6 +335,16 @@ main {
   .pie-contenido {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+}
+
+/* En celular, menos margen a los costados (header, contenido y pie alineados) */
+@media (max-width: 600px) {
+  .encabezado-contenido,
+  main,
+  .pie-contenido {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
 
@@ -333,7 +388,7 @@ main {
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--muted);
   margin-bottom: 12px;
 }
 
@@ -499,6 +554,7 @@ ol.reglas li::before {
   font-family: var(--font);
   font-size: 0.925rem;
   font-weight: 500;
+  line-height: 1.25;   /* igual en <button> y en <a>, así quedan de la misma altura */
   text-decoration: none;
   padding: 12px 22px;
   border-radius: 999px;
@@ -571,7 +627,6 @@ button:disabled:active {
   padding: 14px 18px;
   border-radius: var(--radius);
   background-color: var(--surface-2);
-  border: 1px solid var(--line);
   font-weight: 500;
   margin: 12px 0;
   animation: entrar var(--dur-base) var(--ease-out);
@@ -583,13 +638,11 @@ button:disabled:active {
 
 .mensaje-ok {
   background-color: var(--ok-soft);
-  border-color: rgba(74, 222, 128, 0.3);
   color: var(--ok);
 }
 
 .mensaje-error {
   background-color: var(--bad-soft);
-  border-color: rgba(248, 113, 113, 0.3);
   color: var(--bad);
 }
 
@@ -597,21 +650,18 @@ button:disabled:active {
   display: none;
 }
 
-/* Panel de estado: ronda, puntos, tiro, tiempo, vidas, etc. */
+/* Panel de estado: ronda, puntos, tiro, tiempo, vidas, etc.
+   Sin caja: una fila de datos entre dos líneas finas */
 .estado {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 1px;
   margin-bottom: 12px;
-  background-color: var(--line);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
 .estado-item {
-  background-color: var(--surface);
-  padding: 10px 16px;
+  padding: 10px 16px 10px 0;
 }
 
 .estado-item span {
@@ -630,6 +680,18 @@ button:disabled:active {
   line-height: 1.3;
   color: var(--text);
   font-variant-numeric: tabular-nums;
+}
+
+/* En pantallas angostas, dos columnas parejas */
+@media (max-width: 640px) {
+  .estado {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Zona de juego: sin caja propia, así la mesa (o los dados) es el único recuadro */
+.juego {
+  margin-bottom: var(--gap);
 }
 
 /* Vidas: glifos de texto monocromos en lugar de emojis */
@@ -705,40 +767,80 @@ button:disabled:active {
   max-width: none;
 }
 
-/* Configuración centrada, sin panel (Dados: nombres de los jugadores) */
-.config-centrada {
-  text-align: center;
-  padding: 48px 0;
+.campo input::placeholder {
+  color: var(--faint);
 }
 
-.config-centrada h2 {
-  font-size: clamp(2rem, 4vw, 2.6rem);
-  margin-bottom: 32px;
+/* Configuración de la Trivia: cada grupo de opciones, uno debajo del otro */
+.config-opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 24px;
 }
 
-.config-centrada .config-jugadores {
-  gap: 0 20px;
-  max-width: 720px;
-  margin: 0 auto;
+.grupo-opciones {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
 }
 
-.config-centrada .campo input {
-  padding: 18px 26px;
-  font-size: 1.05rem;
-  border-color: transparent;
-  border-radius: 999px;
-  background-color: var(--surface-2);
-}
-
-.config-centrada .campo input::placeholder {
+.grupo-opciones legend {
+  padding: 0;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
   color: var(--muted);
-  opacity: 0.6;
 }
 
-.config-centrada .btn {
-  padding: 14px 32px;
-  font-size: 1rem;
-  margin-top: 8px;
+/* Opciones con forma de botón: el radio queda invisible pero sigue funcionando
+   con el teclado (Tab para entrar al grupo y flechas para cambiar) */
+.segmentado {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.segmentado label {
+  position: relative;
+  cursor: pointer;
+}
+
+.segmentado input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.segmentado span {
+  display: block;
+  min-width: 52px;
+  padding: 10px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  text-align: center;
+  font-size: 0.925rem;
+  color: var(--muted);
+  transition: background-color var(--dur-fast) var(--ease-ui),
+    border-color var(--dur-fast) var(--ease-ui),
+    color var(--dur-fast) var(--ease-ui);
+}
+
+.segmentado label:hover span {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+.segmentado input:checked + span {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.segmentado input:focus-visible + span {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 /* Texto sólo para lectores de pantalla: el label existe pero no se ve */
@@ -781,12 +883,12 @@ button:disabled:active {
 .icono-juego {
   display: grid;
   place-items: center;
-  aspect-ratio: 1 / 0.95;
+  aspect-ratio: 16 / 10;
 }
 
 /* Trazo fino que toma el color del texto de la tarjeta (currentColor) */
 .icono-juego svg {
-  width: 62%;
+  width: 44%;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.2px;
@@ -806,16 +908,46 @@ button:disabled:active {
 
 .icono-juego text {
   font-family: var(--font);
-  font-size: 34px;
+  font-size: 2.125rem;
   font-weight: 400;
 }
 
 .tarjeta-info {
   padding: 0 24px 24px;
+  text-align: center;
 }
 
 .tarjeta-info h3 {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+}
+
+.tarjeta-desc {
+  color: var(--muted);
+  font-size: 0.925rem;
+  margin: 0 0 8px;
+}
+
+/* "Jugar" de cada tarjeta: con borde, y se llena al pasar el mouse o al hacer foco */
+.tarjeta-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  padding: 8px 20px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color var(--dur-fast) var(--ease-ui),
+    border-color var(--dur-fast) var(--ease-ui),
+    color var(--dur-fast) var(--ease-ui);
+}
+
+.tarjeta-juego:hover .tarjeta-cta,
+.tarjeta-juego:focus-visible .tarjeta-cta {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
 }
 
 .etiqueta {
@@ -835,11 +967,31 @@ button:disabled:active {
   margin: 0;
 }
 
+/* En celular la zona del ícono es más baja, para que las tarjetas no ocupen toda la pantalla */
+@media (max-width: 600px) {
+  .tarjeta-juego:link,
+  .tarjeta-juego:visited {
+    border-radius: var(--radius-lg);
+  }
+
+  .icono-juego {
+    aspect-ratio: 5 / 2;
+  }
+
+  .icono-juego svg {
+    width: 26%;
+  }
+
+  .tarjeta-info {
+    padding: 0 16px 20px;
+  }
+}
+
 /* Hover: la tarjeta elegida se ilumina y las otras se apagan.
    Sólo en dispositivos con mouse; con teclado pasa lo mismo al hacer foco. */
 @media (hover: hover) {
   .tarjeta-juego:hover {
-    background-color: #222225;
+    background-color: #2c2c30;
   }
 
   .tarjetas-juegos:hover .tarjeta-juego:not(:hover) {
@@ -915,9 +1067,8 @@ button:disabled:active {
   grid-template-columns: 1fr auto;
   gap: 0 32px;
   background-color: var(--surface);
-  background-image: radial-gradient(100% 70% at 50% 0%, rgba(255, 255, 255, 0.03), transparent 70%);
   border: 1px solid var(--line);
-  border-radius: 28px;
+  border-radius: var(--radius-lg);
   padding: 20px 24px 4px;
 }
 
@@ -964,6 +1115,15 @@ button:disabled:active {
   min-height: calc(var(--carta-ancho) * 1.4);
 }
 
+/* Lugar vacío de cada jugada: un contorno punteado marca dónde va a caer la carta */
+.mano-jugada:empty::before {
+  content: "";
+  width: var(--carta-ancho);
+  height: calc(var(--carta-ancho) * 1.4);
+  border: 1px dashed var(--line-strong);
+  border-radius: 10px;
+}
+
 .carta {
   animation: entrar var(--dur-base) var(--ease-out);
 }
@@ -982,7 +1142,8 @@ button:disabled:active {
   border-radius: 10px;
   background-color: transparent;
   cursor: pointer;
-  transition: box-shadow var(--dur-fast) var(--ease-ui);
+  transition: box-shadow var(--dur-fast) var(--ease-ui),
+    transform var(--dur-fast) var(--ease-ui);
 }
 
 .carta-boton img {
@@ -992,14 +1153,17 @@ button:disabled:active {
   filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.5));
 }
 
+/* Al pasar el mouse la carta se levanta un poco, como si la fueras a jugar */
 .carta-boton:hover {
   box-shadow: 0 0 0 2px var(--accent);
+  transform: translateY(-4px);
 }
 
 .carta-boton:disabled,
 .carta-boton:disabled:hover {
   background-color: transparent;
   box-shadow: none;
+  transform: none;
   opacity: 0.4;
   cursor: not-allowed;
 }
@@ -1013,6 +1177,39 @@ button:disabled:active {
 .mano-chica .carta img {
   width: calc(var(--carta-ancho) / 2);
   height: calc(var(--carta-ancho) * 0.7);
+}
+
+/* En celular: cartas más chicas, la mano entra en una fila
+   y la carta de mesa queda al lado de las dos jugadas */
+@media (max-width: 600px) {
+  :root {
+    --carta-ancho: 52px;
+  }
+
+  .mesa {
+    padding: 14px 12px 4px;
+  }
+
+  .fila-mesa {
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  /* Los rótulos pueden ocupar dos líneas: las cartas van abajo para quedar alineadas */
+  .fila-mesa .zona-mano {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fila-mesa .mano {
+    margin-top: auto;
+  }
+
+  .mano {
+    gap: 6px;
+  }
 }
 
 /* ---------- 6. Juego de dados (Blanco) ---------- */
@@ -1032,13 +1229,9 @@ button:disabled:active {
   padding: 16px 14px 6px;
   background-color: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 28px;
+  border-radius: var(--radius-lg);
   margin-bottom: 16px;
   text-align: center;
-}
-
-.zona-objetivo {
-  background-image: radial-gradient(80% 80% at 50% 0%, rgba(248, 113, 113, 0.07), transparent 70%);
 }
 
 .titulo-dados {
@@ -1050,6 +1243,12 @@ button:disabled:active {
   color: var(--text);
   font-size: 1.6em;
   font-variant-numeric: tabular-nums;
+}
+
+/* Nombre del jugador que tiene el turno */
+.titulo-dados strong {
+  color: var(--text);
+  font-weight: inherit;
 }
 
 .fila-dados {
@@ -1134,17 +1333,16 @@ button:disabled:active {
   flex: 1 1 380px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 16px;
 }
 
+/* Cada jugador sin caja, entre dos líneas como el panel de estado */
 .marcador-jugador {
   flex: 1 1 160px;
-  padding: 14px 18px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background-color: var(--surface);
-  transition: border-color var(--dur-base) var(--ease-ui),
-    box-shadow var(--dur-base) var(--ease-ui);
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  transition: box-shadow var(--dur-base) var(--ease-ui);
 }
 
 .marcador-jugador strong {
@@ -1153,10 +1351,9 @@ button:disabled:active {
   font-size: 1.1rem;
 }
 
-/* Jugador que tiene el turno */
+/* Jugador que tiene el turno: la línea de arriba se vuelve blanca */
 .marcador-activo {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 4px var(--accent-soft);
+  box-shadow: inset 0 2px 0 var(--accent);
 }
 
 /* Jugador sin vidas */
@@ -1169,6 +1366,11 @@ button:disabled:active {
   text-align: center;
   color: var(--faint);
   font-size: 0.875rem;
+}
+
+/* Cuando no se pueden guardar dados la ayuda se esconde, pero sigue ocupando su lugar */
+.ayuda-dados.inactiva {
+  visibility: hidden;
 }
 
 /* ---------- 7. Juego de preguntas (Trivia) ---------- */
@@ -1185,6 +1387,13 @@ button:disabled:active {
   border-radius: 999px;
   background-color: var(--accent);
   box-shadow: 0 0 16px rgba(255, 255, 255, 0.35);
+  /* Dura lo mismo que un segundo del temporizador: la barra se vacía de forma continua */
+  transition: width 1s linear;
+}
+
+/* Al empezar una pregunta la barra vuelve llena de golpe */
+.barra-tiempo-relleno.sin-transicion {
+  transition: none;
 }
 
 .alerta {
@@ -1269,6 +1478,9 @@ button:disabled:active {
 }
 
 .opcion {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-family: var(--font);
   font-size: 1rem;
   text-align: left;
@@ -1284,6 +1496,20 @@ button:disabled:active {
 
 .opcion:hover {
   border-color: var(--text);
+}
+
+/* Número de la opción: también es su tecla (1 a 4) */
+.opcion-tecla {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
 }
 
 .opcion:disabled,
@@ -1357,13 +1583,101 @@ button:disabled:active {
 }
 
 /* ---------- 8. Puntajes y Nosotros ---------- */
+/* Cada panel con su propio alto: un juego sin récords no se estira para igualar a los otros */
 .grilla-puntajes {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align-items: start;
   gap: var(--gap);
 }
 
+/* Título del juego a la izquierda y "Jugar" a la derecha */
+.ranking-cabecera {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ranking-cabecera h2 {
+  margin-bottom: 16px;
+}
+
+.link-jugar {
+  flex: none;
+  padding: 6px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 0.825rem;
+  font-weight: 500;
+  transition: background-color var(--dur-fast) var(--ease-ui),
+    border-color var(--dur-fast) var(--ease-ui),
+    color var(--dur-fast) var(--ease-ui);
+}
+
+a.link-jugar:link,
+a.link-jugar:visited {
+  color: var(--text);
+  text-decoration: none;
+}
+
+a.link-jugar:hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Rótulos de las columnas del ranking, alineados con el nombre y el puntaje */
+.lista-columnas {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding: 0 0 6px 44px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
 .grilla-puntajes .panel {
+  margin: 0;
+}
+
+.grilla-puntajes .sobretitulo {
+  margin-bottom: 6px;
+}
+
+/* Partidas y promedio de cada juego, arriba de su ranking */
+.grilla-puntajes .estado {
+  margin-bottom: 8px;
+}
+
+/* Borrar récords: texto a la izquierda y botón a la derecha, separado del ranking por una línea */
+.zona-borrar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.zona-borrar h2 {
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.zona-borrar .bajada {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.zona-borrar .acciones {
   margin: 0;
 }
 
@@ -1382,7 +1696,7 @@ button:disabled:active {
   grid-template-columns: 32px 1fr auto;
   align-items: baseline;
   gap: 12px;
-  padding: 14px 0;
+  padding: 10px 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -1415,14 +1729,46 @@ button:disabled:active {
   white-space: nowrap;
 }
 
-/* El primer puesto resalta sólo con peso y contraste */
+/* El primer puesto es el récord: nombre y puntaje más grandes */
+.lista-records li:first-child {
+  padding: 16px 0;
+}
+
 .lista-records li:first-child::before,
 .lista-records li:first-child .record-puntaje {
   color: var(--text);
 }
 
 .lista-records li:first-child .record-nombre {
+  font-size: 1.1rem;
   font-weight: 500;
+}
+
+.lista-records li:first-child .record-puntaje {
+  font-family: var(--font);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* Puestos del jugador actual: el nombre en blanco y una etiqueta "Vos" */
+.record-propio .record-nombre {
+  font-weight: 500;
+}
+
+.etiqueta-vos {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background-color: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: 2px;
 }
 
 .sin-datos {
@@ -1438,17 +1784,21 @@ button:disabled:active {
   margin: 0 0 var(--gap);
 }
 
+/* Integrantes sin caja: una línea arriba, y el avatar al lado del nombre */
 .integrante {
-  background-color: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  padding: 24px;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  column-gap: 16px;
+  row-gap: 2px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line-strong);
 }
 
 .avatar {
+  grid-row: 1 / 3;
   width: 56px;
   height: 56px;
-  margin: 0 0 40px;
+  margin: 0;
   border-radius: 50%;
   border: 1px solid var(--line-strong);
   background-color: var(--surface-2);
@@ -1461,7 +1811,12 @@ button:disabled:active {
 }
 
 .integrante h3 {
-  margin-bottom: 4px;
+  align-self: end;
+  margin: 0;
+}
+
+.integrante p {
+  align-self: start;
 }
 
 .integrante p {
@@ -1471,15 +1826,15 @@ button:disabled:active {
 
 /* ---------- 9. Cabeceras, bloques y Nosotros (proceso, mapa, stack) ---------- */
 .cabecera {
-  padding: clamp(16px, 4vw, 48px) 0 var(--space-section);
+  padding: 0 0 clamp(48px, 6vw, 80px);
 }
 
 .cabecera h1 {
-  font-size: clamp(2.8rem, 8vw, 6rem);
-  line-height: 0.95;
-  letter-spacing: -0.05em;
-  max-width: 12ch;
-  margin-bottom: 28px;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  max-width: 16ch;
+  margin-bottom: 20px;
 }
 
 /* Páginas de juego y puntajes: menos aire arriba para que el contenido quede a la vista */
@@ -1491,11 +1846,11 @@ button:disabled:active {
   padding: 20px;
 }
 
-/* Cabecera compacta: título a la izquierda y el botón de reglas a la derecha */
+/* Cabecera compacta: título a la izquierda y el botón de reglas a la derecha, centrado en altura */
 .cabecera-juego {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 12px 24px;
   padding-bottom: 16px;
@@ -1527,6 +1882,28 @@ button:disabled:active {
   margin: 0;
 }
 
+/* Portada: todo centrado, con los botones debajo del texto */
+.cabecera-centrada {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 0 40px;
+}
+
+.cabecera-centrada > div {
+  flex: none;
+}
+
+.cabecera-centrada h1 {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  margin-bottom: 12px;
+}
+
+.cabecera-centrada .bajada {
+  max-width: 46ch;
+  margin: 0 auto;
+}
+
 /* Ventana de reglas (<dialog>): se abre encima del juego sin moverlo */
 .ventana-reglas {
   width: min(980px, calc(100% - 32px));
@@ -1547,7 +1924,14 @@ button:disabled:active {
 
 /* El padding va adentro: así un clic en el fondo oscuro llega al <dialog> y lo cierra */
 .ventana-contenido {
-  padding: 24px;
+  padding: clamp(20px, 4vw, 36px);
+}
+
+/* Adentro de la ventana las dos columnas van sin caja, separadas sólo por el espacio */
+.ventana-reglas .panel {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
 }
 
 .ventana-cabecera {
@@ -1563,6 +1947,7 @@ button:disabled:active {
 }
 
 .ventana-reglas .intro-juego {
+  gap: 24px 48px;
   margin-bottom: 0;
 }
 
@@ -1603,19 +1988,35 @@ button:disabled:active {
 
 /* Cada bloque: título a la izquierda, contenido debajo */
 .bloque {
-  padding-top: 40px;
-  margin-bottom: var(--space-section);
+  padding-top: 32px;
+  margin-bottom: clamp(48px, 6vw, 80px);
   border-top: 1px solid var(--line);
 }
 
-.bloque-titulo {
-  margin-bottom: 36px;
+/* El último bloque no suma margen: el main ya deja aire antes del pie */
+.bloque:last-child {
+  margin-bottom: 0;
 }
 
-.bloque-titulo h2 {
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
-  letter-spacing: -0.04em;
-  margin-bottom: 12px;
+.bloque-titulo {
+  margin-bottom: 28px;
+}
+
+/* Mismo tamaño que los títulos de las otras páginas, para que la jerarquía sea pareja */
+.bloque-titulo h2,
+.cierre h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  letter-spacing: -0.035em;
+  margin-bottom: 10px;
+}
+
+/* Cierre de Nosotros: invitación a jugar, centrada */
+.cierre {
+  text-align: center;
+}
+
+.cierre .bajada {
+  margin: 0 auto 24px;
 }
 
 /* Proceso: pasos en columnas, con línea de tiempo arriba */
@@ -1789,9 +2190,27 @@ button:disabled:active {
   }
 }
 
-@media (max-width: 520px) {
+/* En celular: números del proceso más chicos y el mapa sigue en dos columnas */
+@media (max-width: 600px) {
+  .proceso li {
+    padding: 20px 0 4px;
+  }
+
+  .proceso .paso-num {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
   .mapa {
-    grid-template-columns: 1fr;
+    gap: 32px 12px;
+  }
+
+  .mapa-columna {
+    padding-left: 14px;
+  }
+
+  .mapa-columna .mapa-nodo::before {
+    left: -18px;
   }
 }
 
@@ -1847,6 +2266,11 @@ button:disabled:active {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
+}
+
+/* Títulos y la pregunta reciben el foco por código (tabindex="-1"): no hace falta marcarlos */
+[tabindex="-1"]:focus {
+  outline: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

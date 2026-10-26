@@ -4,18 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LukyPlay | Inicio</title>
+  <meta name="description" content="LukyPlay: tres juegos originales para jugar en el navegador. Duelo de Palos con cartas, Blanco con dados y una trivia de arte.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body class="pagina-compacta">
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
   <header class="encabezado">
     <div class="encabezado-contenido">
       <a class="marca" href="index.html"><img src="img/logo-min.svg" alt="">LukyPlay</a>
       <nav class="menu">
         <ul>
-          <li><a class="activo" href="index.html">Inicio</a></li>
+          <li><a class="activo" aria-current="page" href="index.html">Inicio</a></li>
           <li><a href="cartas.html">Cartas</a></li>
           <li><a href="dados.html">Dados</a></li>
           <li><a href="preguntas.html">Trivia</a></li>
@@ -26,17 +29,22 @@
     </div>
   </header>
 
-  <main>
+  <main id="contenido">
     <!-- Cabecera compacta: el selector de juegos queda como protagonista -->
-    <section class="cabecera-juego">
+    <section class="cabecera-juego cabecera-centrada">
       <div>
-        <span class="sobretitulo">Bienvenidos a LukyPlay</span>
+        <span class="sobretitulo">LukyPlay · 3 juegos originales</span>
         <h1>Elegí tu juego</h1>
-          </div>
-      
+        <p class="bajada">Cartas contra la máquina, dados de a dos y una trivia de arte. Jugá en el navegador y guardá tus récords.</p>
+      </div>
+      <div class="acciones">
+        <button type="button" class="btn btn-secundario" id="btn-reglas">Cómo funciona</button>
+        <a class="btn btn-secundario" href="puntajes.html">Ver puntajes</a>
+      </div>
     </section>
 
-    <section class="selector-juegos" aria-label="Juegos">
+    <section class="selector-juegos" aria-labelledby="titulo-juegos">
+      <h2 class="solo-lector" id="titulo-juegos">Juegos</h2>
       <!-- Selector de juegos: cada tarjeta es un link. Al pasar el mouse
            se ilumina la elegida y se apagan las otras (ver estilos.css, sección 4) -->
       <div class="tarjetas-juegos">
@@ -50,7 +58,9 @@
           <div class="tarjeta-info">
             <span class="etiqueta">Cartas · 1 jugador</span>
             <h3>Duelo de Palos</h3>
+            <p class="tarjeta-desc">Ganale a la máquina en 8 rondas.</p>
             <p class="record-portada" id="record-cartas">Récord: —</p>
+            <span class="tarjeta-cta">Jugar <span aria-hidden="true">→</span></span>
           </div>
         </a>
         <a class="tarjeta-juego" href="dados.html">
@@ -66,7 +76,9 @@
           <div class="tarjeta-info">
             <span class="etiqueta">Dados · 2 jugadores</span>
             <h3>Blanco</h3>
+            <p class="tarjeta-desc">Acercate al número con tres dados.</p>
             <p class="record-portada" id="record-dados">Récord: —</p>
+            <span class="tarjeta-cta">Jugar <span aria-hidden="true">→</span></span>
           </div>
         </a>
         <a class="tarjeta-juego" href="preguntas.html">
@@ -79,14 +91,11 @@
           <div class="tarjeta-info">
             <span class="etiqueta">Preguntas · 1 jugador</span>
             <h3>Trivia de arte</h3>
+            <p class="tarjeta-desc">¿Reconocés estas obras y artistas?</p>
             <p class="record-portada" id="record-preguntas">Récord: —</p>
+            <span class="tarjeta-cta">Jugar <span aria-hidden="true">→</span></span>
           </div>
         </a>
-      </div>
-
-      <div class="acciones">
-        <button type="button" class="btn btn-secundario" id="btn-reglas">Cómo funciona</button>
-        <a class="btn btn-secundario" href="puntajes.html">Ver récords</a>
       </div>
     </section>
 
@@ -99,10 +108,10 @@
           <form method="dialog"><button type="submit" class="btn btn-secundario">Cerrar</button></form>
         </div>
         <ol class="pasos">
-          <li><span class="paso-num">01</span><strong>Elegí un juego</strong>En cada juego, el botón «Cómo se juega» muestra el objetivo y las reglas.</li>
-          <li><span class="paso-num">02</span><strong>Jugá</strong>El panel de estado muestra la ronda, los puntos y lo que podés hacer.</li>
-          <li><span class="paso-num">03</span><strong>Guardá tu puntaje</strong>Al terminar, escribí tu nombre. El récord queda guardado en este navegador.</li>
-          <li><span class="paso-num">04</span><strong>Compará</strong>La tabla de puntajes muestra el top 10 de cada juego.</li>
+          <li><span class="paso-num">01</span><strong>Elegí un juego</strong>«Cómo se juega» explica el objetivo y las reglas.</li>
+          <li><span class="paso-num">02</span><strong>Jugá</strong>Arriba ves la ronda y los puntos; el mensaje te dice qué hacer.</li>
+          <li><span class="paso-num">03</span><strong>Guardá tu puntaje</strong>Al terminar, escribí tu nombre. Se guarda en este navegador.</li>
+          <li><span class="paso-num">04</span><strong>Compará</strong>En Puntajes está el top 10 de cada juego.</li>
         </ol>
       </div>
     </dialog>
@@ -116,7 +125,7 @@
       </div>
       <div>
         <span class="pie-titulo">Alumnos</span>
-        <p>Marcela Toledo<br>André Palacios<br>Agustina Pol Diaz</p>
+        <p>Marcela Toledo<br>André Palacios<br>Agustina Pol Diez</p>
       </div>
       <div>
         <span class="pie-titulo">Cátedra</span>
